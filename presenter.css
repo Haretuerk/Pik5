@@ -1,0 +1,49 @@
+/*
+	presenter.css
+	Don't edit this file unless you _really_ hate the appearance of the presenter as it is
+*/
+
+
+/* Basics */
+body {
+	font-family: Helvetica, Arial, sans-serif;
+	background:#FFF;
+	color:#000;
+	line-height:1.4
+}
+h1 {
+	clear:both;
+	font-size:2em;
+	padding:1em 0.5em;
+	margin:0;
+}
+p, ul, ol, iframe {
+	margin:0 1em
+}
+
+
+/* Layout */
+#wrapper {
+	width:960px;
+	margin:0 auto;
+}
+#presenter-current {
+	float:left;
+}
+#presenter-next {
+	float:right;
+}
+
+
+/* Timer */
+#timer {
+	font-size:2em;
+	padding:1em 0;
+	margin:0.5em;
+}
+
+
+/* Presentation windows */
+iframe {
+	border:2px solid #000;
+}
