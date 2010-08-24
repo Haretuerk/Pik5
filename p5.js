@@ -42,9 +42,11 @@ framecontainer.set('tween', {
 slideTo = function(index, sendToRemote){
 	if(slides[index]){
 		framecontainer.tween('left', index * 100 * -1);
-		slides[current].fireEvent('hide');
-		slides[index].fireEvent('show');
-		P5.fireEvent('change', [index]);
+		if(!inPresenter){
+			slides[current].fireEvent('hide');
+			slides[index].fireEvent('show');
+			P5.fireEvent('change', [index]);
+		}
 		if(sendToRemote && presenter){
 			presenter.postMessage(index, origin);
 		}
