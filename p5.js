@@ -14,6 +14,7 @@ var slideselect = $('slideselect');
 var slidenext = $('slidenext');
 var slideback = $('slideback');
 var startpresenter = $('startpresenter');
+var inPresenter = /presenter\.html(#([0-9]+))*$/.test(parent.location + ''); // Presentation or presenetr view?
 
 
 // Add "End of presentation" slide
@@ -61,10 +62,10 @@ slideBack = function(sendToRemote){
 // Key event setup
 window.addEvent('keyup', function(evt){
 	var code = evt.code;
-	if(code == 37 && !/presenter\.html(#([0-9]+))*$/.test(parent.location + '')){     // Do nothing if the page is embedded in presenter.html
+	if(code == 37 && !inPresenter){     // Do nothing if the page is embedded in presenter.html
 		slideBack(true);
 	}
-	else if(code == 39 && !/presenter\.html(#([0-9]+))*$/.test(parent.location + '')){ // Do nothing if the page is embedded in presenter.html
+	else if(code == 39 && !inPresenter){ // Do nothing if the page is embedded in presenter.html
 		slideNext(true);
 	}
 });
@@ -87,7 +88,7 @@ slides.each(function(slide, index){
 	}
 });
 slideselect.set('html', slideselecthtml);
-if(!/presenter\.html(#([0-9]+))*$/.test(parent.location + '')){
+if(!inPresenter){
 	slideselect.addEvent('change', function(){
 		slideTo(slideselect.value, true);
 	});
@@ -111,13 +112,13 @@ P5.addEvent('change', function(index){
 // Slide back and forth
 slidenext.addEvent('click', function(e){
 	e.stop();
-	if(!/presenter\.html(#([0-9]+))*$/.test(parent.location + '')){
+	if(!inPresenter){
 		slideNext(true);
 	}
 });
 slideback.addEvent('click', function(e){
 	e.stop();
-	if(!/presenter\.html(#([0-9]+))*$/.test(parent.location + '')){
+	if(!inPresenter){
 		slideBack(true);
 	}
 });
