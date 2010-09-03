@@ -14,7 +14,7 @@ var slideselect = $('slideselect');
 var slidenext = $('slidenext');
 var slideback = $('slideback');
 var startpresenter = $('startpresenter');
-var inPresenter = /presenter\.html(#([0-9]+))*$/.test(parent.location + ''); // Presentation or presenetr view?
+var inPresenter = /presenter\.html(#([0-9]+))*$/.test(parent.location + ''); // Presentation or presenter view?
 
 
 // Add "End of presentation" slide
