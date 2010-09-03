@@ -4,16 +4,16 @@ var slides, presenter, slideTo, slideNext, slideBack;
 window.addEvent('domready', function(){
 
 
-var origin = '*';
-var P5 = $$('body')[0];
-var current = 0;
-var frame = $('frame');
-var framecontainer = $('framecontainer');
-slides = $$('.slide');
-var slideselect = $('slideselect');
-var slidenext = $('slidenext');
-var slideback = $('slideback');
-var startpresenter = $('startpresenter');
+var origin = '*';                                                            // Placeholder for what will once be the presentation's HTML orgin
+var P5 = $$('body')[0];                                                      // Body element
+var current = 0;                                                             // Currently visible slide
+var frame = $('frame');                                                      // Wrapper element
+var framecontainer = $('framecontainer');                                    // The moving slide container
+slides = $$('.slide');                                                       // All the slides
+var slideselect = $('slideselect');                                          // Slide select element
+var slidenext = $('slidenext');                                              // Link to go to the next slide
+var slideback = $('slideback');                                              // Link to go to the previous slide
+var startpresenter = $('startpresenter');                                    // Link to launch the presenter view
 var inPresenter = /presenter\.html(#([0-9]+))*$/.test(parent.location + ''); // Presentation or presenter view?
 
 
@@ -22,7 +22,7 @@ slides.push(new Element('div', {
 	id: 'end',
 	'class': 'slide',
 	html: '<p>End of presentation.</p>'
-}).inject(slides[slides.length-1], 'after'));
+}).inject(framecontainer, 'bottom'));
 
 
 // Basic layout setup
@@ -34,11 +34,14 @@ framecontainer.setStyle('width', 100 * slides.length + '%');
 slides.setStyle('width', 100 / slides.length + '%');
 
 
-// Slide methods
+// Set the slide effect. To use no transistion at all, set duration to 0
 framecontainer.set('tween', {
 	duration: 400,
 	unit: '%'
 });
+
+
+// Slide to the slide index
 slideTo = function(index, sendToRemote){
 	if(slides[index]){
 		framecontainer.tween('left', index * 100 * -1);
@@ -53,9 +56,15 @@ slideTo = function(index, sendToRemote){
 		current = index;
 	}
 };
+
+
+// Go to the next slide
 slideNext = function(sendToRemote){
 	slideTo(current + 1, sendToRemote);
 };
+
+
+// Go to the previous slide
 slideBack = function(sendToRemote){
 	slideTo(current - 1, sendToRemote);
 };
@@ -73,7 +82,7 @@ window.addEvent('keyup', function(evt){
 });
 
 
-// Jump to slides
+// Slide select element
 var slideselecthtml = '';
 slides.each(function(slide, index){
 	// Exclude the end slide
@@ -90,6 +99,9 @@ slides.each(function(slide, index){
 	}
 });
 slideselect.set('html', slideselecthtml);
+
+
+// Go to the selected slide
 if(!inPresenter){
 	slideselect.addEvent('change', function(){
 		slideTo(slideselect.value, true);
