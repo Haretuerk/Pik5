@@ -25,26 +25,35 @@ slides.push(new Element('div', {
 }).inject(framecontainer, 'bottom'));
 
 
-// Basic layout setup
+// Setup font
 var framesize = frame.getSize();
 var frameratio = (framesize.x + framesize.y) / 1000;
 P5.setStyle('font-size', frameratio + 'em');
+
+
+// Setup frame
 frame.setStyle('overflow', 'hidden');
 framecontainer.setStyle('width', 100 * slides.length + '%');
-slides.setStyle('width', 100 / slides.length + '%');
+var framecontainersize = framecontainer.getSize();
+
+
+// Setup slides
+var slidesize = framecontainersize.x / slides.length;
+alert(slidesize);
+slides.setStyle('width', slidesize + 'px');
 
 
 // Set the slide effect. To use no transistion at all, set duration to 0
 framecontainer.set('tween', {
 	duration: 400,
-	unit: '%'
+	unit: 'px'
 });
 
 
 // Slide to the slide index
 slideTo = function(index, sendToRemote){
 	if(slides[index]){
-		framecontainer.tween('left', index * 100 * -1);
+		framecontainer.tween('left', index * slidesize * -1);
 		if(!inPresenter){
 			slides[current].fireEvent('hide');
 			slides[index].fireEvent('show');
