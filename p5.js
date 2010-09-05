@@ -39,7 +39,6 @@ var framecontainersize = framecontainer.getSize();
 
 // Setup slides
 var slidesize = framecontainersize.x / slides.length;
-alert(slidesize);
 slides.setStyle('width', slidesize + 'px');
 
 
@@ -52,6 +51,7 @@ framecontainer.set('tween', {
 
 // Slide to the slide index
 slideTo = function(index, sendToRemote){
+	index = parseInt(index);
 	if(slides[index]){
 		framecontainer.tween('left', index * slidesize * -1);
 		if(!inPresenter){
@@ -69,13 +69,13 @@ slideTo = function(index, sendToRemote){
 
 // Go to the next slide
 slideNext = function(sendToRemote){
-	slideTo(current + 1, sendToRemote);
+	slideTo(++current, sendToRemote);
 };
 
 
 // Go to the previous slide
 slideBack = function(sendToRemote){
-	slideTo(current - 1, sendToRemote);
+	slideTo(--current, sendToRemote);
 };
 
 
@@ -123,10 +123,7 @@ var options = slideselect.getElements('option');
 P5.addEvent('change', function(index){
 	options.each(function(option){
 		if(option.value == index){
-			option.set('selected', 'selected');
-		}
-		else{
-			option.erase('selected');
+			slideselect.value = index;
 		}
 	});
 });
