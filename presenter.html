@@ -13,7 +13,7 @@
 
 
 			<div id="presenter-current">
-				<h1>Current slide</h1>
+				<h1>Current slide (<b id="currentindex">1</b> / <span id="numslides">0</span>)</h1>
 				<iframe id="current" src="index.html" width="512" height="384"></iframe>
 			</div>
 
@@ -35,6 +35,8 @@
 			var current = document.getElementById('current');
 			var next = document.getElementById('next');
 			window.addEventListener('load', function(event){
+				// Get the number of slides
+				document.getElementById('numslides').innerHTML = current.contentWindow.document.getElementsByClassName('slide').length;
 				// Hide the control elements in the iframe
 				current.contentWindow.document.getElementById('controls').innerHTML = '';
 				next.contentWindow.document.getElementById('controls').innerHTML = '';
@@ -72,6 +74,7 @@
 				var nextslide = parseInt(event.data) + 1;
 				current.contentWindow.slideTo(currentslide);
 				next.contentWindow.slideTo(nextslide);
+				document.getElementById('currentindex').innerHTML = nextslide;
 			}, false);
 		</script>
 

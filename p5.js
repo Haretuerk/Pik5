@@ -82,7 +82,6 @@ slideBack = function(sendToRemote){
 // Key event setup
 window.addEvent('keyup', function(evt){
 	var code = evt.code;
-alert(code);
 	if((code == 37 || code == 33) && !inPresenter){     // Do nothing if the page is embedded in presenter.html
 		slideBack(true);
 	}
