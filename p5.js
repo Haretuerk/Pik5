@@ -82,10 +82,11 @@ slideBack = function(sendToRemote){
 // Key event setup
 window.addEvent('keyup', function(evt){
 	var code = evt.code;
-	if(code == 37 && !inPresenter){     // Do nothing if the page is embedded in presenter.html
+alert(code);
+	if((code == 37 || code == 33) && !inPresenter){     // Do nothing if the page is embedded in presenter.html
 		slideBack(true);
 	}
-	else if(code == 39 && !inPresenter){ // Do nothing if the page is embedded in presenter.html
+	else if((code == 39 || code == 34) && !inPresenter){ // Do nothing if the page is embedded in presenter.html
 		slideNext(true);
 	}
 });
