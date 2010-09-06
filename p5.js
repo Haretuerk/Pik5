@@ -57,7 +57,7 @@ slideTo = function(index, sendToRemote){
 		if(!inPresenter){
 			slides[current].fireEvent('hide');
 			slides[index].fireEvent('show');
-			P5.fireEvent('change', [index]);
+			P5.fireEvent('change', index);
 		}
 		if(sendToRemote && presenter){
 			presenter.postMessage(index, origin);
@@ -69,20 +69,20 @@ slideTo = function(index, sendToRemote){
 
 // Go to the next slide
 slideNext = function(sendToRemote){
-	slideTo(++current, sendToRemote);
+	slideTo(current + 1, sendToRemote);
 };
 
 
 // Go to the previous slide
 slideBack = function(sendToRemote){
-	slideTo(--current, sendToRemote);
+	slideTo(current - 1, sendToRemote);
 };
 
 
 // Key event setup
 window.addEvent('keyup', function(evt){
 	var code = evt.code;
-	if((code == 37 || code == 33) && !inPresenter){     // Do nothing if the page is embedded in presenter.html
+	if((code == 37 || code == 33) && !inPresenter){      // Do nothing if the page is embedded in presenter.html
 		slideBack(true);
 	}
 	else if((code == 39 || code == 34) && !inPresenter){ // Do nothing if the page is embedded in presenter.html
