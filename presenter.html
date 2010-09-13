@@ -3,23 +3,24 @@
 	<head>
 		<meta charset="utf-8">
 		<title>P5 Presenter View</title>
-		<link rel="stylesheet" href="p5.css">
-		<link rel="stylesheet" href="presenter.css">
+		<link rel="stylesheet" href="assets/css/p5.css">
+		<link rel="stylesheet" href="assets/css/presenter.css">
 	</head>
 	<body>
 
 
 		<div id="wrapper">
 
+			<h1 id="title">Presenter view</h1>
 
 			<div id="presenter-current">
-				<h1>Current slide (<b id="currentindex">1</b> / <span id="numslides">0</span>)</h1>
+				<h2>Current slide (<b id="currentindex">1</b> / <span id="numslides">0</span>)</h2>
 				<iframe id="current" src="index.html" width="512" height="384"></iframe>
 			</div>
 
 
 			<div id="presenter-next">
-				<h1>Next slide</h1>
+				<h2>Next slide</h2>
 				<iframe id="next" src="index.html" width="360" height="270"></iframe>
 				<p id="timer">
 					Time: <span id="time">00:00:00</span> 
@@ -29,54 +30,9 @@
 
 		</div> <!-- End #wrapper -->
 
-
-		<script>
-			// Get the iframes
-			var current = document.getElementById('current');
-			var next = document.getElementById('next');
-			window.addEventListener('load', function(event){
-				// Get the number of slides
-				document.getElementById('numslides').innerHTML = current.contentWindow.document.getElementsByClassName('slide').length;
-				// Hide the control elements in the iframe
-				current.contentWindow.document.getElementById('controls').innerHTML = '';
-				next.contentWindow.document.getElementById('controls').innerHTML = '';
-				// Start from where the presenter was launched
-				var fragment = /#([0-9]+)$/.exec(window.location)[1];
-				if(fragment){
-					current.contentWindow.slideTo(fragment);
-					next.contentWindow.slideTo(++fragment);
-				}
-				// Setup the timer
-				var time = document.getElementById('time');
-				var h = m = s = 0;
-				var timer = setInterval(function(){
-					s++;
-					if(s == 60){
-						s = 0;
-						m++;
-					}
-					if(m == 60){
-						m = 0;
-						h++;
-					}
-					h = h + '';
-					if(h.length == 1) { h = '0' + h; }
-					m = m + '';
-					if(m.length == 1) { m = '0' + m; }
-					s = s + '';
-					if(s.length == 1) { s = '0' + s; }
-					time.innerHTML = h + ':' + m + ':' + s;
-				}, 1000);
-			}, false);
-			// On message, advance the iframes
-			window.addEventListener('message', function(event){
-				var currentslide = parseInt(event.data);
-				var nextslide = parseInt(event.data) + 1;
-				current.contentWindow.slideTo(currentslide);
-				next.contentWindow.slideTo(nextslide);
-				document.getElementById('currentindex').innerHTML = nextslide;
-			}, false);
-		</script>
+		<script src="assets/js/mootools.js"></script>
+		<script src="assets/js/shared.js"></script>
+		<script src="assets/js/presenter.js"></script>
 
 
 	</body>

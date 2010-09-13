@@ -1,5 +1,8 @@
-window.addEvent('domready', function(){
+/*
+	custom.js
+	Use this to spice up your presentation with some of your own JavaScript
+*/
 
-// Program your slides here
+window.addEvent('domready', function(){
 
 });

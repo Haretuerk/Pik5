@@ -3,13 +3,14 @@
 	<head>
 		<meta charset="utf-8">
 		<title>P5 - HTML5 presentation framework</title>
-		<link rel="stylesheet" media="screen, projection" href="p5.css">
-		<link rel="stylesheet" media="screen, projection" href="style.css">
-		<link rel="stylesheet" media="print" href="print.css">
-		<link rel="stylesheet" href="assets/prettify/prettify.css"> <!-- Remove this if your presentation is not about coding -->
+		<link rel="stylesheet" media="screen, projection" href="assets/css/p5.css"> <!-- DO NOT DELETE THIS! -->
+		<link rel="stylesheet" media="screen, projection" href="style.css"> <!-- Use this to style your presentation -->
+		<link rel="stylesheet" media="print" href="print.css"> <!-- Use this to make your presentation print well -->
+		<link rel="stylesheet" href="assets/prettify/prettify.css"> <!-- You can remove this if your presentation is not about coding -->
 		<script src="assets/prettify/prettify.js"></script> <!-- Remove this if your presentation is not about coding -->
-		<script src="mootools.js"></script> <!-- DO NOT DELETE THIS! -->
-		<script src="p5.js"></script> <!-- DO NOT DELETE THIS! -->
+		<script src="assets/js/mootools.js"></script> <!-- DO NOT DELETE THIS! -->
+		<script src="assets/js/shared.js"></script> <!-- DO NOT DELETE THIS! -->
+		<script src="assets/js/p5.js"></script> <!-- DO NOT DELETE THIS! -->
 		<script src="custom.js"></script> <!-- Use this for your own slide programming -->
 	</head>
 	<body onload="prettyPrint()"> <!-- Remove the onload property if your presentation is not about coding -->
@@ -83,10 +84,14 @@ slides[6].addEvent('hide', function(){
 					<script>
 						$('slide7').addEvents({
 							'show': function(){
-								alert('Showing slide 7!');
+								setTimeout(function(){
+									alert('Now on slide 7!');
+								}, 400);
 							},
 							'hide': function(){
-								alert('Hiding slide 7!');
+								setTimeout(function(){
+									alert('Just left slide 7!');
+								}, 400);
 							}
 						});
 					</script>
@@ -118,7 +123,7 @@ slides[6].addEvent('hide', function(){
 				<div class="slide" id="slide8">
 					<h2>ToDo</h2>
 					<ol>
-						<li>Become independent of MooTools</li>
+						<li>Maybe become independent of MooTools</li>
 						<li>?</li>
 					</ol>
 				</div>
