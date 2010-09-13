@@ -6,6 +6,14 @@ window.addEvent('load', function(event){
 	var next = $('next');
 
 
+	// Disable forms inside the iframes
+	var disableForms = function(win){
+		win.$$('input, textarea, select, button').set('disabled', 'disabled');
+	}
+	disableForms(current.contentWindow);
+	disableForms(next.contentWindow);
+
+
 	// Get the number of slides
 	$('numslides').set('html', current.contentWindow.$$('.slide').length);
 
@@ -19,9 +27,9 @@ window.addEvent('load', function(event){
 	if(!fragment){
 		fragment = 0;
 	}
-	$('currentindex').set('html', fragment);
 	current.contentWindow.slideTo(fragment);
 	next.contentWindow.slideTo(++fragment);
+	$('currentindex').set('html', fragment);
 
 
 	// Setup the timer
