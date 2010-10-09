@@ -11,20 +11,20 @@
 
 		<div id="wrapper">
 
-			<h1 id="title">Presenter view</h1>
+			<h1><span id="title">Presenter view</span> <span id="timer">Time: <span id="time">00:00:00</span></span></h1>
 
-			<div id="presenter-current">
-				<h2>Current slide (<b id="currentindex">1</b> / <span id="numslides">0</span>)</h2>
-				<iframe id="current" src="index.html" width="512" height="384"></iframe>
-			</div>
+			<div id="viewer">
 
+				<div id="presenter-current">
+					<h2>Current slide (<b id="currentindex">1</b> / <span id="numslides">0</span>)</h2>
+					<iframe id="current" src="index.html" width="560" height="420"></iframe>
+				</div>
 
-			<div id="presenter-next">
-				<h2>Next slide</h2>
-				<iframe id="next" src="index.html" width="360" height="270"></iframe>
-				<p id="timer">
-					Time: <span id="time">00:00:00</span> 
-				</p>
+				<div id="presenter-next">
+					<h2>Next slide</h2>
+					<iframe id="next" src="index.html" width="380" height="285"></iframe>
+				</div>
+
 			</div>
 
 

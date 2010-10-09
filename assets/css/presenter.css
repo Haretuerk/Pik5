@@ -19,7 +19,7 @@ h1 {
 h2 {
 	clear:both;
 	font-size:1.5em;
-	padding:0 0.75em;
+	padding:0.75em;
 	margin:0;
 }
 p, ul, ol, iframe {
@@ -32,23 +32,33 @@ p, ul, ol, iframe {
 	width:960px;
 	margin:0 auto;
 }
+#viewer {
+	position:relative;
+	margin-top:16px;
+}
 #presenter-current {
 	float:left;
 }
 #presenter-next {
-	float:right;
+	text-align:right;
+	position:absolute;
+	top:68px;
+	right:0;
 }
 
 
 /* Timer */
 #timer {
-	font-size:2em;
-	padding:1em 0;
-	margin:0.5em;
+	font-weight:normal;
+	float:right;
 }
 
 
 /* Presentation windows */
 iframe {
-	border:2px solid #000;
+	border:2px solid #FFF;
+	background:#FFF;
+	-moz-box-shadow:4px 4px 20px #888;
+	-webkit-box-shadow:4px 4px 20px #888;
+	box-shadow:4px 4px 20px #888;
 }
