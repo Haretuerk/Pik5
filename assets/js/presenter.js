@@ -55,17 +55,24 @@ window.addEvent('load', function(event){
 	}, 1000);
 
 
-	// On message, advance the iframes
+	// Recieve messages from the presentation
 	window.addEventListener('message', function(event){
-		var currentslide = parseInt(event.data);
-		var nextslide = parseInt(event.data) + 1;
-		current.contentWindow.slideTo(currentslide);
-		next.contentWindow.slideTo(nextslide);
-		$('currentindex').set('html', nextslide);
+		// Toggle visibility
+		if(event.data == 'toggleHidePresentation'){
+			current.contentWindow.toggleHidePresentation();
+		}
+		// Go to slide x
+		else {
+			var currentslide = parseInt(event.data);
+			var nextslide = parseInt(event.data) + 1;
+			current.contentWindow.slideTo(currentslide);
+			next.contentWindow.slideTo(nextslide);
+			$('currentindex').set('html', nextslide);
+		}
 	}, false);
 
 
-	// On keypress, advance the slides in the presentation
+	// Delegeate control events
 	if(window.opener){
 		window.addEvents({
 			'slidenext': function(){
@@ -73,6 +80,9 @@ window.addEvent('load', function(event){
 			},
 			'slideback': function(){
 				window.opener.slideBack(true);
+			},
+			'hide': function(){
+				window.opener.toggleHidePresentation();
 			}
 		});
 	}

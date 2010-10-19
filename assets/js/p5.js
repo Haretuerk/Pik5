@@ -1,5 +1,5 @@
 // Global variables
-var slides, presenter, slideTo, slideNext, slideBack;
+var slides, presenter, slideTo, slideNext, slideBack, toggleHidePresentation;
 
 
 window.addEvent('domready', function(){
@@ -34,6 +34,29 @@ framecontainer.setStyle('width', 100 * slides.length + '%');
 var framecontainersize = framecontainer.getSize();
 var slidesize = framecontainersize.x / slides.length;
 slides.setStyle('width', slidesize + 'px');
+
+
+// The overlay element used to hide the presentation
+var hideElement = new Element('div', {
+	styles: {
+		position: 'absolute',
+		top: 0,
+		right: 0,
+		bottom: 0,
+		left: 0,
+		'z-index': 1337,
+		background:'#000'
+	}
+}).fade('hide').inject(frame, 'bottom');
+
+
+// The function used to hide the presentation
+toggleHidePresentation = function(){
+	hideElement.fade('toggle');
+	if(presenter && !inPresenter){
+		presenter.postMessage('toggleHidePresentation', origin);
+	}
+};
 
 
 // Set the slide effect. To use no transistion at all, set duration to 0
@@ -73,7 +96,7 @@ slideBack = function(sendToRemote){
 };
 
 
-// Change slides on keypress
+// Change slides or hide presentation on keypress
 if(!inPresenter){      // Do nothing if the page is embedded in presenter.html
 	window.addEvents({
 		'slidenext': function(){
@@ -81,6 +104,9 @@ if(!inPresenter){      // Do nothing if the page is embedded in presenter.html
 		},
 		'slideback': function(){
 			slideBack(true);
+		},
+		'hide': function(){
+			toggleHidePresentation(true);
 		}
 	});
 }
@@ -143,8 +169,8 @@ if(slideselect !== null){
 }
 
 
-// Launch the presenter view
-if(!inPresenter){      // Do nothing if the page is embedded in presenter.html
+// Launch the presenter view. Do nothing if the page is embedded in presenter.html
+if(!inPresenter){
 	var startpresenter = $('startpresenter');
 	if(startpresenter){
 		startpresenter.addEvent('click', function(e){
