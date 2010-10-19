@@ -12,6 +12,7 @@ Features
   * Presenter mode
   * Programmable slides
   * Built-in code highlighting ([google-code-prettify][2])
+  * Supported Hardware: [Logitech Presenter R400][]
 
 
 How to use
@@ -26,3 +27,4 @@ How to use
 
   [1]: http://github.com/SirPepe/P5
   [2]: http://code.google.com/p/google-code-prettify/
+  [3]: http://www.logitech.com/en-us/mice-pointers/presentation-remote/devices/5993

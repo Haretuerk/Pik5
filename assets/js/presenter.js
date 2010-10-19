@@ -1,9 +1,12 @@
+var current, next;
+
+
 window.addEvent('load', function(event){
 
 
 	// Get the iframes
-	var current = $('current');
-	var next = $('next');
+	current = $('current');
+	next = $('next');
 
 
 	// Disable forms inside the iframes
@@ -76,10 +79,10 @@ window.addEvent('load', function(event){
 	if(window.opener){
 		window.addEvents({
 			'slidenext': function(){
-				window.opener.slideNext(true);
+				window.opener.slideNext();
 			},
 			'slideback': function(){
-				window.opener.slideBack(true);
+				window.opener.slideBack();
 			},
 			'hide': function(){
 				window.opener.toggleHidePresentation();

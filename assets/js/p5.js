@@ -67,7 +67,7 @@ framecontainer.set('tween', {
 
 
 // Slide to the slide index
-slideTo = function(index, sendToRemote){
+slideTo = function(index){
 	index = parseInt(index);
 	if(slides[index]){
 		framecontainer.tween('left', index * slidesize * -1);
@@ -76,7 +76,7 @@ slideTo = function(index, sendToRemote){
 			slides[index].fireEvent('show');
 			window.fireEvent('slidechange', index);
 		}
-		if(sendToRemote && presenter){
+		if(presenter && !inPresenter){
 			presenter.postMessage(index, origin);
 		}
 		current = index;
@@ -85,35 +85,35 @@ slideTo = function(index, sendToRemote){
 
 
 // Go to the next slide
-slideNext = function(sendToRemote){
-	slideTo(current + 1, sendToRemote);
+slideNext = function(){
+	slideTo(current + 1);
 };
 
 
 // Go to the previous slide
-slideBack = function(sendToRemote){
-	slideTo(current - 1, sendToRemote);
+slideBack = function(){
+	slideTo(current - 1);
 };
 
 
-// Change slides or hide presentation on keypress
-if(!inPresenter){      // Do nothing if the page is embedded in presenter.html
+// Change slides or hide presentation on keypress. Do nothing if the page is embedded in presenter.html
+if(!inPresenter){
 	window.addEvents({
 		'slidenext': function(){
-			slideNext(true);
+			slideNext();
 		},
 		'slideback': function(){
-			slideBack(true);
+			slideBack();
 		},
 		'hide': function(){
-			toggleHidePresentation(true);
+			toggleHidePresentation();
 		}
 	});
 }
 
 
-// Change slides using links
-if(!inPresenter){      // Do nothing if the page is embedded in presenter.html
+// Change slides using links .Do nothing if the page is embedded in presenter.html
+if(!inPresenter){
 	var slidenext = $('slidenext');
 	if(slidenext !== null){
 		slidenext.addEvent('click', function(e){
@@ -151,8 +151,8 @@ if(slideselect !== null){
 		}
 	});
 	slideselect.set('html', slideselecthtml);
-	// Go to the selected slide using the slide selector
-	if(!inPresenter){      // Do nothing if the page is embedded in presenter.html
+	// Go to the selected slide using the slide selector. Do nothing if the page is embedded in presenter.html
+	if(!inPresenter){
 		slideselect.addEvent('change', function(){
 			slideTo(slideselect.value, true);
 		});
