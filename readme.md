@@ -1,7 +1,7 @@
 P5
 ==
 
-HTML5 presentation framework
+HTML5 presentation framework (MIT license)
 
 [http://github.com/SirPepe/P5][1]
 
@@ -20,7 +20,8 @@ How to use
    1. Open index.html and edit/add slides (`<div class="slide">`)
    2. Add styling to style.css and print.css
    3. If needed, programm the slides
-   4. Run the presentation (index.html) in Firefox 3.6+, Safari 5+, or Chrome 5+
+   4. Run the presentation (index.html) in Firefox 3.6+, Safari 5+, Opera 10.60+ or Chrome 5+
+   5. Navigate slides using the arrow keys. You can hide the presentation using the F5 or ESC key
 
 
   [1]: http://github.com/SirPepe/P5
