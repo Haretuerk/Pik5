@@ -1,71 +1,54 @@
-// Global variables
-var slides, presenter, slideTo, slideNext, slideBack, toggleHidePresentation;
+var slides, presenter, slideTo, slideNext, slideBack, toggleHidePresentation
 
 
-window.addEvent('domready', function(){
+$(document).ready(function(){
 
 
-var origin = '*';                         // Placeholder for what will be the presentation's HTML orgin
-var current = 0;                          // Currently visible slide
-var frame = $('frame');                   // Wrapper element
-var framecontainer = $('framecontainer'); // The moving slide container
-slides = $$('.slide');                    // All the slides
-
-var inPresenter = /presenter\.html(#([0-9]+))*$/.test(parent.location + ''); // Presentation or presenter view?
+var origin = '*'
+  , current = 0
+  , frame = $('#frame')
+  , framecontainer = $('#framecontainer')
+  , inPresenter = /presenter\.html(#([0-9]+))*$/.test(parent.location + '')
 
 
 // Add "End of presentation" slide
-slides.push(new Element('div', {
-	id: 'end',
-	'class': 'slide',
-	html: '<p>End of presentation.</p>'
-}).inject(framecontainer, 'bottom'));
+framecontainer.append('<div id="end" class="slide"><p>End of presentation.</p></div>')
+slides = $('.slide')
 
 
 // Setup font
-var framesize = frame.getSize();
-var frameratio = (framesize.x + framesize.y) / 1000;
-$$('body').setStyle('font-size', frameratio + 'em');
+var frameratio = (frame.height() + frame.width()) / 1000
+$('body').css('font-size', frameratio + 'em')
 
 
 // Setup frame and slides
-frame.setStyle('overflow', 'hidden');
-framecontainer.setStyle('width', 100 * slides.length + '%');
-var framecontainersize = framecontainer.getSize();
-var slidesize = framecontainersize.x / slides.length;
-slides.setStyle('width', slidesize + 'px');
+frame.css('overflow', 'hidden')
+framecontainer.css('width', 100 * slides.length + '%')
+var slidesize = framecontainer.width() / slides.length
+slides.css('width', slidesize + 'px')
 
 
 // The overlay element used to hide the presentation
-var hideElement = new Element('div', {
-	styles: {
-		position: 'absolute',
-		top: 0,
-		right: 0,
-		bottom: 0,
-		left: 0,
-		'z-index': 1337,
-		background:'#000'
-	}
-}).fade('hide').inject(frame, 'bottom');
+var overlay = $('<div></div>').hide().css({
+	position: 'absolute',
+	top: 0,
+	right: 0,
+	bottom: 0,
+	left: 0,
+	'z-index': 1337,
+	background:'#000'
+}).appendTo(frame)
 
 
 // The function used to hide the presentation
 toggleHidePresentation = function(){
-	hideElement.fade('toggle');
+	overlay.toggle(200)
 	if(presenter && !inPresenter){
-		presenter.postMessage('toggleHidePresentation', origin);
+		presenter.postMessage('toggleHidePresentation', origin)
 	}
-};
+}
 
-
-// Set the slide effect. To use no transistion at all, set duration to 0
-framecontainer.set('tween', {
-	duration: 400,
-	unit: 'px'
-});
-
-
+/*
 // Slide to the slide index
 slideTo = function(index){
 	index = parseInt(index);
@@ -86,14 +69,14 @@ slideTo = function(index){
 
 // Go to the next slide
 slideNext = function(){
-	slideTo(current + 1);
-};
+	slideTo(current + 1)
+}
 
 
 // Go to the previous slide
 slideBack = function(){
-	slideTo(current - 1);
-};
+	slideTo(current - 1)
+}
 
 
 // Change slides or hide presentation on keypress. Do nothing if the page is embedded in presenter.html
@@ -178,7 +161,7 @@ if(!inPresenter){
 			presenter = window.open('presenter.html#' + current, 'presenter');
 		});
 	}
-}
+}*/
 
 
-});
+})

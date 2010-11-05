@@ -8,8 +8,8 @@
 		<link rel="stylesheet" media="screen, projection" href="style.css"> <!-- Use this to style your presentation -->
 		<link rel="stylesheet" media="print" href="print.css"> <!-- Use this to make your presentation print well -->
 		<link rel="stylesheet" href="assets/prettify/prettify.css"> <!-- You can remove this if your presentation is not about coding -->
-		<script src="assets/prettify/prettify.js"></script> <!-- Remove this if your presentation is not about coding -->
-		<script src="assets/js/mootools.js"></script> <!-- DO NOT DELETE THIS! -->
+		<script src="assets/prettify/prettify.js"></script> <!-- Remove this if your presentation is not about code -->
+		<script src="assets/js/jquery-1.4.3.min.js"></script> <!-- DO NOT DELETE THIS! -->
 		<script src="assets/js/shared.js"></script> <!-- DO NOT DELETE THIS! -->
 		<script src="assets/js/p5.js"></script> <!-- DO NOT DELETE THIS! -->
 		<script src="custom.js"></script> <!-- Use this for your own slide programming -->
@@ -71,26 +71,13 @@
 
 				<div class="slide">
 					<h2>Programming example</h2>
-					<pre class="prettyprint">// Execute some complicated thing only while slide 7 is visible:
-var timer;
-$('slide7').addEvent('show', function(){
-	timer = someComplicatedThing.periodical();
-});
-$('slide7').addEvent('hide', function(){
-	$clear(timer);
-});</pre>
+					<pre class="prettyprint"></pre>
 				</div>
 
 
 				<div class="slide" id="demo">
 					<h2>Programming demo</h2>
-					<script>
-						$('demo').addEvent('show', function(){
-							setTimeout(function(){
-								alert('Now on slide 7!');
-							}, 450);
-						});
-					</script>
+					<script></script>
 					<p>
 						Note that the slide events do not fire in the presenter view.
 					</p>
