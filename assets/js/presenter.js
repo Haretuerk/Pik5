@@ -1,95 +1,92 @@
-var current, next;
+var current, next
 
 
-window.addEvent('load', function(event){
+window.onload = function(){
 
 
-	// Get the iframes
-	current = $('current');
-	next = $('next');
+// Get the iframes
+current = $('#current')[0].contentWindow
+next = $('#next')[0].contentWindow
 
 
-	// Disable forms inside the iframes
-	var disableForms = function(win){
-		win.$$('input, textarea, select, button').set('disabled', 'disabled');
+// Disable forms inside the iframes
+var disableForms = function(win){
+	win.jQuery('input, textarea, select, button').attr('disabled', 'disabled')
+}
+disableForms(current)
+disableForms(next)
+
+
+// Get the number of slides
+$('#numslides').text(current.jQuery('.slide').length)
+
+
+// Get the presentation's title
+$('title').text(current.jQuery('title').text())
+
+
+// Start from where the presenter was launched
+var fragment = parseInt(/#([0-9]+)$/.exec(window.location)[1])
+if(!fragment){
+	fragment = 0
+}
+current.slideTo(fragment)
+next.slideTo(++fragment)
+$('#currentindex').html(fragment)
+
+
+// Setup the timer
+var time = $('#time')
+  , h = 0
+  , m = 0
+  , s = 0
+  , timer = setInterval(function(){
+	s++
+	if(s == 60){
+		s = 0; m++
 	}
-	disableForms(current.contentWindow);
-	disableForms(next.contentWindow);
-
-
-	// Get the number of slides
-	$('numslides').set('html', current.contentWindow.$$('.slide').length);
-
-
-	// Get the presentation's title
-	$('title').set('html', current.contentWindow.$$('title')[0].get('html'));
-
-
-	// Start from where the presenter was launched
-	var fragment = parseInt(/#([0-9]+)$/.exec(window.location)[1]);
-	if(!fragment){
-		fragment = 0;
+	if(m == 60){
+		m = 0; h++
 	}
-	current.contentWindow.slideTo(fragment);
-	next.contentWindow.slideTo(++fragment);
-	$('currentindex').set('html', fragment);
+	h = h + ''
+	if(h.length == 1) { h = '0' + h }
+	m = m + ''
+	if(m.length == 1) { m = '0' + m }
+	s = s + ''
+	if(s.length == 1) { s = '0' + s }
+	time.html(h + ':' + m + ':' + s)
+}, 1000)
 
 
-	// Setup the timer
-	var time = $('time');
-	var h = m = s = 0;
-	var timer = setInterval(function(){
-		s++;
-		if(s == 60){
-			s = 0;
-			m++;
-		}
-		if(m == 60){
-			m = 0;
-			h++;
-		}
-		h = h + '';
-		if(h.length == 1) { h = '0' + h; }
-		m = m + '';
-		if(m.length == 1) { m = '0' + m; }
-		s = s + '';
-		if(s.length == 1) { s = '0' + s; }
-		time.innerHTML = h + ':' + m + ':' + s;
-	}, 1000);
-
-
-	// Recieve messages from the presentation
-	window.addEventListener('message', function(event){
-		// Toggle visibility
-		if(event.data == 'toggleHidePresentation'){
-			current.contentWindow.toggleHidePresentation();
-		}
-		// Go to slide x
-		else {
-			var currentslide = parseInt(event.data);
-			var nextslide = parseInt(event.data) + 1;
-			current.contentWindow.slideTo(currentslide);
-			next.contentWindow.slideTo(nextslide);
-			$('currentindex').set('html', nextslide);
-		}
-	}, false);
-
-
-	// Delegeate control events
-	if(window.opener){
-		window.addEvents({
-			'slidenext': function(){
-				window.opener.slideNext();
-			},
-			'slideback': function(){
-				window.opener.slideBack();
-			},
-			'hide': function(){
-				window.opener.toggleHidePresentation();
-			}
-		});
+// Recieve messages from the presentation
+window.addEventListener('message', function(event){
+	if(event.data == 'toggleHidePresentation'){
+		current.toggleOverlay();
 	}
+	else {
+		var currentslide = parseInt(event.data)
+		var nextslide = parseInt(event.data)++
+		current.slideTo(currentslide)
+		next.slideTo(nextslide)
+		$('#currentindex').text(nextslide)
+	}
+}, false)
 
 
-});
+// Delegeate control events
+if(window.opener){
+	$(window).bind({
+		'slidenext': function(){
+			window.opener.slideNext()
+		},
+		'slideback': function(){
+			window.opener.slideBack()
+		},
+		'overlay': function(){
+			window.opener.toggleHidePresentation()
+		}
+	})
+}
 
+
+}
