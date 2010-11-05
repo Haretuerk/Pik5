@@ -1,7 +1,7 @@
-var slides, presenter, slideTo, slideNext, slideBack, toggleHidePresentation
+var slides, presenter, slideTo, slideNext, slideBack, toggleOverlay
 
 
-$(document).ready(function(){
+jQuery(function($){
 
 
 var origin = '*'
@@ -41,30 +41,30 @@ var overlay = $('<div></div>').hide().css({
 
 
 // The function used to hide the presentation
-toggleHidePresentation = function(){
-	overlay.toggle(200)
+toggleOverlay = function(){
+	overlay.toggle()
 	if(presenter && !inPresenter){
-		presenter.postMessage('toggleHidePresentation', origin)
+		presenter.postMessage('toggleOverlay', origin)
 	}
 }
 
-/*
+
 // Slide to the slide index
 slideTo = function(index){
-	index = parseInt(index);
+	index = parseInt(index)
 	if(slides[index]){
-		framecontainer.tween('left', index * slidesize * -1);
+		framecontainer.css('left', index * slidesize * -1)
 		if(!inPresenter){
-			slides[current].fireEvent('hide');
-			slides[index].fireEvent('show');
-			window.fireEvent('slidechange', index);
+			$(slides[current]).trigger('hide')
+			$(slides[index]).trigger('show')
+			$(document).trigger('slidechange', index)
 		}
 		if(presenter && !inPresenter){
-			presenter.postMessage(index, origin);
+			presenter.postMessage(index, origin)
 		}
-		current = index;
+		current = index
 	}
-};
+}
 
 
 // Go to the next slide
@@ -81,87 +81,80 @@ slideBack = function(){
 
 // Change slides or hide presentation on keypress. Do nothing if the page is embedded in presenter.html
 if(!inPresenter){
-	window.addEvents({
+	$(document).bind({
 		'slidenext': function(){
-			slideNext();
+			slideNext()
 		},
 		'slideback': function(){
-			slideBack();
+			slideBack()
 		},
-		'hide': function(){
-			toggleHidePresentation();
+		'overlay': function(){
+			toggleOverlay()
 		}
-	});
+	})
 }
 
 
 // Change slides using links .Do nothing if the page is embedded in presenter.html
 if(!inPresenter){
-	var slidenext = $('slidenext');
-	if(slidenext !== null){
-		slidenext.addEvent('click', function(e){
-			e.stop();
-			window.fireEvent('slidenext');
-		});
+	var slidenext = $('#slidenext')
+	if(slidenext){
+		slidenext.click(function(evt){
+			$(document).trigger('slidenext')
+			evt.preventDefault()
+		})
 	}
-	var slideback = $('slideback');
-	if(slideback !== null){
-		slideback.addEvent('click', function(e){
-			e.stop();
-			window.fireEvent('slideback');
-		});
+	var slideback = $('#slideback')
+	if(slideback){
+		slideback.click(function(){
+			$(document).trigger('slideback')
+		})
 	}
 }
 
 
 // Setup the slide select element
-var slideselect = $('slideselect');
-if(slideselect !== null){
-	// Insert the option elements
-	var slideselecthtml = '';
-	slides.each(function(slide, index){
-		// Exclude the end slide
-		if(slide.get('id') != 'end'){
-			// Get the slide title from headlines
-			var headlines = slide.getElements('h1, h2, h3, h4, h5, h6');
-			if(headlines[0]){
-				var optiontitle = index + 1 + ': ' + headlines[0].get('text');
-			}
-			else{
-				var optiontitle = index;
-			}
-			slideselecthtml += '<option value="' + index + '">' + optiontitle + '</option>';
+var slideselect = $('#slideselect')
+if(slideselect){
+	var slideselecthtml = ''
+	slides.each(function(index, slide){
+		slide = $(slide)
+		if(slide.attr('id') !== 'end'){
+			var headlines = slide.find('h1, h2, h3, h4, h5, h6')
+			var optiontitle = (headlines[0]) ? index + 1 + ': ' + $(headlines[0]).text() : index
+			slideselecthtml += '<option value="' + index + '">' + optiontitle + '</option>'
 		}
-	});
-	slideselect.set('html', slideselecthtml);
+	})
+	slideselect.html(slideselecthtml)
 	// Go to the selected slide using the slide selector. Do nothing if the page is embedded in presenter.html
 	if(!inPresenter){
-		slideselect.addEvent('change', function(){
-			slideTo(slideselect.value, true);
-		});
+		slideselect.change(function(){
+			slideTo(slideselect.val(), true)
+		})
 	}
 	// Keep the slide select up to date
-	var options = slideselect.getElements('option');
-	window.addEvent('slidechange', function(index){
-		options.each(function(option){
+	var options = slideselect.find('option')
+	$(document).bind('slidechange', function(evt, index){
+		options.each(function(i, option){
 			if(option.value == index){
-				slideselect.value = index;
+				console.log(option.value)
+				slideselect.val(index)
 			}
-		});
-	});
+		})
+	})
 }
 
 
 // Launch the presenter view. Do nothing if the page is embedded in presenter.html
 if(!inPresenter){
-	var startpresenter = $('startpresenter');
+	var startpresenter = $('#startpresenter')
 	if(startpresenter){
-		startpresenter.addEvent('click', function(e){
-			e.stop();
-			presenter = window.open('presenter.html#' + current, 'presenter');
-		});
+		startpresenter.click(function(evt){
+			presenter = window.open('presenter.html#' + current, 'presenter')
+			evt.preventDefault()
+		})
 	}
-}*/
+}
 
 
 })
