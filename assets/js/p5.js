@@ -137,7 +137,6 @@ if(slideselect){
 	$(document).bind('slidechange', function(evt, index){
 		options.each(function(i, option){
 			if(option.value == index){
-				console.log(option.value)
 				slideselect.val(index)
 			}
 		})

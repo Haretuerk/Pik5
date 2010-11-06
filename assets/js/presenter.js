@@ -60,12 +60,12 @@ var time = $('#time')
 
 // Recieve messages from the presentation
 window.addEventListener('message', function(event){
-	if(event.data == 'toggleHidePresentation'){
+	if(event.data == 'toggleOverlay'){
 		current.toggleOverlay();
 	}
 	else {
 		var currentslide = parseInt(event.data)
-		var nextslide = parseInt(event.data)++
+		var nextslide = parseInt(event.data) + 1
 		current.slideTo(currentslide)
 		next.slideTo(nextslide)
 		$('#currentindex').text(nextslide)
@@ -75,7 +75,7 @@ window.addEventListener('message', function(event){
 
 // Delegeate control events
 if(window.opener){
-	$(window).bind({
+	$(document).bind({
 		'slidenext': function(){
 			window.opener.slideNext()
 		},
@@ -83,7 +83,7 @@ if(window.opener){
 			window.opener.slideBack()
 		},
 		'overlay': function(){
-			window.opener.toggleHidePresentation()
+			window.opener.toggleOverlay()
 		}
 	})
 }
