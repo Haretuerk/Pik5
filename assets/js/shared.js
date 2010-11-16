@@ -7,17 +7,16 @@
 jQuery(function($){
 
 
-var doc = $(document)
-doc.keydown(function(evt){
+$(document).keydown(function(evt){
 	var code = evt.keyCode
 	if(code == 39 || code == 34){
-		doc.trigger('slidenext')
+		$(this).trigger('slidenext')
 	}
 	else if(code == 37 || code == 33){
-		doc.trigger('slideback')
+		$(this).trigger('slideback')
 	}
 	else if(code == 116 || code == 190 || code == 27){
-		doc.trigger('overlay')
+		$(this).trigger('overlay')
 		evt.preventDefault()
 	}
 })

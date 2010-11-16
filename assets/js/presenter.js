@@ -1,12 +1,9 @@
-var current, next
-
-
 window.onload = function(){
 
 
 // Get the iframes
-current = $('#current')[0].contentWindow
-next = $('#next')[0].contentWindow
+var current = $('#current')[0].contentWindow
+  , next = $('#next')[0].contentWindow
 
 
 // Disable forms inside the iframes

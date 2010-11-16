@@ -53,12 +53,12 @@ toggleOverlay = function(){
 slideTo = function(index){
 	index = parseInt(index)
 	if(slides[index]){
-		framecontainer.css('left', index * slidesize * -1)
 		if(!inPresenter){
-			$(slides[current]).trigger('hide')
-			$(slides[index]).trigger('show')
+			$(slides[current]).trigger('deactivate')
+			$(slides[index]).trigger('activate')
 			$(document).trigger('slidechange', index)
 		}
+		framecontainer.css('left', index * slidesize * -1)
 		if(presenter && !inPresenter){
 			presenter.postMessage(index, origin)
 		}

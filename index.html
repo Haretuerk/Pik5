@@ -63,21 +63,30 @@
 				<div class="slide">
 					<h2>Programming presentations</h2>
 					<ul>
-						<li>A <code>show</code> event is fired on the slides when they are shown and a <code>hide</code> event when hidden</li>
-						<li>A <code>slidechange</code> event is fired on the window object when slides change</li>
+						<li>An <code>activate</code> event is fired on the slides when they are shown and a <code>deactivate</code> event when hidden</li>
+						<li>A <code>slidechange</code> event is fired on the document object when slides change</li>
 					</ul>
 				</div>
 
 
 				<div class="slide">
 					<h2>Programming example</h2>
-					<pre class="prettyprint"></pre>
+					<pre class="prettyprint">$('#demo').bind('activate', function(){
+    alert('Foo')
+})</pre>
 				</div>
 
 
 				<div class="slide" id="demo">
 					<h2>Programming demo</h2>
-					<script></script>
+					<script>
+						$('#demo').bind('activate', function(){
+							
+						})
+					</script>
+					<p id="demobox">
+						Hallo World!
+					</p>
 					<p>
 						Note that the slide events do not fire in the presenter view.
 					</p>
@@ -118,8 +127,7 @@
 					<ol>
 						<li>Allow control and configuration of the timer</li>
 						<li>Allow configuration of slide transistion effects</li>
-						<li>Add a developer mode where F45 refreshes the page and doesn't hide the presentation</li>
-						<li>Maybe become independent of MooTools</li>
+						<li>Add a developer mode where F5 refreshes the page and doesn't hide the presentation</li>
 					</ol>
 				</div>
 
