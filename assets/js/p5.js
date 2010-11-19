@@ -1,7 +1,7 @@
 var slides, presenter, slideTo, slideNext, slideBack, toggleOverlay
 
 
-jQuery(function($){
+jQuery(document).ready(function($){
 
 
 var origin = '*'

@@ -4,7 +4,7 @@
 */
 
 
-jQuery(function($){
+jQuery(document).ready(function($){
 
 
 $(document).keydown(function(evt){

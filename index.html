@@ -70,26 +70,41 @@
 
 
 				<div class="slide">
-					<h2>Programming example</h2>
-					<pre class="prettyprint">$('#demo').bind('activate', function(){
-    alert('Foo')
-})</pre>
+					<h2>Simple programming example</h2>
+					<pre class="prettyprint">jQuery(document).ready(function($){
+    $('#demo').bind({
+        'activate': function(){
+            $('#demobox').show('slow').addClass('demo');
+        },
+        'deactivate': function(){
+            $('#demobox').hide().removeClass('demo');
+        }
+    });
+});</pre>
 				</div>
 
 
 				<div class="slide" id="demo">
 					<h2>Programming demo</h2>
-					<script>
-						$('#demo').bind('activate', function(){
-							
-						})
-					</script>
 					<p id="demobox">
 						Hallo World!
 					</p>
 					<p>
 						Note that the slide events do not fire in the presenter view.
 					</p>
+					<script>
+						jQuery(document).ready(function($){
+							$('#demobox').hide();
+							$('#demo').bind({
+								'activate': function(){
+									$('#demobox').show('slow').addClass('demo');
+								},
+								'deactivate': function(){
+									$('#demobox').hide().removeClass('demo');
+								}
+							});
+						});
+					</script>
 				</div>
 
 
