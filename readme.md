@@ -8,11 +8,11 @@ HTML5 presentation framework (MIT license)
 Features
 --------
 
-  * 100% HTML5, CSS and JavaScript (MooTools)
+  * 100% HTML5, CSS and JavaScript (jQuery)
   * Presenter mode
   * Programmable slides
   * Built-in code highlighting ([google-code-prettify][2])
-  * Supported Hardware: [Logitech Presenter R400][]
+  * Supported Hardware: [Logitech Presenter R400][3]
 
 
 How to use
