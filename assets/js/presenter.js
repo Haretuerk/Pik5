@@ -39,6 +39,7 @@ var time = $('#time')
   , s = 0
   , timer = setInterval(function(){
 	s++
+	var now = new Date()
 	if(s == 60){
 		s = 0; m++
 	}
@@ -51,7 +52,7 @@ var time = $('#time')
 	if(m.length == 1) { m = '0' + m }
 	s = s + ''
 	if(s.length == 1) { s = '0' + s }
-	time.html(h + ':' + m + ':' + s)
+	time.html(h + ':' + m + ':' + s + '<span class="now">' + now.toLocaleTimeString() + '</span>')
 }, 1000)
 
 

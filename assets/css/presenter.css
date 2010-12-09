@@ -50,7 +50,13 @@ p, ul, ol, iframe {
 /* Timer */
 #timer {
 	font-weight:normal;
+	text-align:right;
 	float:right;
+}
+.now {
+	font-weight:bold;
+	display:block;
+	font-size:0.5em;
 }
 
 
