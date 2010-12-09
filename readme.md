@@ -1,9 +1,9 @@
-P5
-==
+Pik5
+====
 
 HTML5 presentation framework (MIT license)
 
-[http://github.com/SirPepe/P5][1]
+[http://github.com/SirPepe/Pik5][1]
 
 Features
 --------
@@ -22,7 +22,7 @@ How to use
    2. Add styling to style.css and print.css
    3. If needed, programm the slides
    4. Run the presentation (index.html) in Firefox 3.6+, Safari 5+, Opera 10.60+ or Chrome 5+
-   5. Navigate slides using the arrow keys. You can hide the presentation using the F5 or ESC key
+   5. Navigate slides using the arrow keys. Hide the presentation using the F5 or ESC key
 
 
   [1]: http://github.com/SirPepe/P5

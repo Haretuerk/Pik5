@@ -1,0 +1,111 @@
+/*
+	style.css
+	This controls how your presentation looks. Edit away!
+*/
+
+
+/* Basics */
+body {
+	font-family: Helvetica, Arial, sans-serif;
+	background:#000;
+	color:#FFF;
+	line-height:1.5;
+}
+h2 {
+	text-align:center;
+	font-size:1.8em;
+	margin:1em
+}
+p, ul, ol, pre {
+	font-size:1.1em;
+	margin:1em
+}
+#frame {
+	background:url(bg.jpg) bottom left repeat-x
+}
+a {
+	text-decoration:none;
+	color:#FFF;
+	font-weight:bold;
+}
+a:link {
+	border-bottom:2px solid #FFF;
+}
+a:visited {
+	border-bottom:2px dotted #FFF;
+}
+a:hover {
+	border-bottom:2px solid transparent;
+}
+a:active {
+	color:#C00;
+	border-bottom:2px solid transparent;
+}
+
+
+/* Header */
+#header {
+	color:#FFF;
+	text-align:right;
+}
+h1 {
+	font-size:0.5em;
+	margin:0;
+	padding:1em;
+}
+
+
+/* Footer */
+#footer {
+	background:#000;
+	color:#FFF;
+}
+#footer a {
+	border:none;
+	margin:0 8px;
+}
+#footer p {
+	font-size:0.5em;
+	margin:0;
+	padding:1em;
+}
+#footer select {
+	font-size:inherit;
+}
+
+
+/* Style for individual slides */
+#start h2 {
+	font-size:5em;
+	margin-bottom:0;
+}
+#start h2 img {
+	vertical-align:middle;
+}
+#start p {
+	text-align:center;
+	font-size:2em;
+}
+.demo {
+	background:#3EA6C8;
+	color:#FFF;
+	font-size:2em;
+}
+
+
+/* Code highlighting for dark backgrounds */
+.str { color:#0C0 }
+.kwd { color:#FFF; font-weight:bold; }
+.com { color:#CCC }
+.typ { color:#606 }
+.lit { color:#066 }
+.pun { color:#888 }
+.pln { color:#FFF }
+.tag { color:#03F }
+.atn { color:#7AF }
+.atv { color:#080 }
+.dec { color:#606 }
+pre.prettyprint { padding:0; border:none }
+ol.linenums { margin-top:0; margin-bottom:0 }
+li.L0,li.L1,li.L2,li.L3,li.L5,li.L6,li.L7,li.L8 { list-style:none }
+li.L1,li.L3,li.L5,li.L7,li.L9 { background:#111 }
