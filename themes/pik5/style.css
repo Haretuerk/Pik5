@@ -64,10 +64,8 @@ a:active {
 /* Style for individual slides */
 #start h2 {
 	font-size:5em;
+	margin-top:1em;
 	margin-bottom:0;
-}
-#start h2 img {
-	vertical-align:middle;
 }
 #start p {
 	text-align:center;

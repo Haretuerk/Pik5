@@ -125,7 +125,7 @@ $('#slideback').click(function(evt){
 // Setup control menu
 var slideselect = $('#slideselect')
 var slideselecthtml = ''
-if(window.opener){
+if(window.opener && window.opener.slides){
 	window.opener.slides.each(function(index, slide){
 		slide = $(slide)
 		if(slide.attr('id') !== 'end'){
