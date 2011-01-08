@@ -11,27 +11,38 @@
 	</head>
 	<body>
 
+		<!--
+			This file provides the presenter view
+			Don't edit anything unless you really want to break the presenter view!
+		-->
+
+		<div id="header">
+			<div class="wrapper">
+				<h1>Presenter view</h1>
+				<div id="timecontainer">
+					<span id="timer">Time elapsed: <span id="time">00:00:00</span> | <span id="now">00:00:00</span> o'clock</span>
+				</div>
+			</div>
+		</div>
 
 		<div id="wrapper">
-
-			<h1><span id="title">Presenter view</span> <span id="timer">Time: <span id="time">00:00:00</span></span></h1>
 
 			<div id="viewer">
 				<div id="presenter-current">
 					<h2>Current slide (<b id="currentindex">1</b> / <span id="numslides">0</span>)</h2>
-					<iframe id="current" src="index.html" width="560" height="420"></iframe>
+					<iframe id="current" src="index.html" width="570" height="428"></iframe>
 				</div>
 				<div id="presenter-next">
 					<h2>Next slide</h2>
-					<iframe id="next" src="index.html" width="380" height="285"></iframe>
+					<iframe id="next" src="index.html" width="392" height="294"></iframe>
 				</div>
 			</div>
 
 			<div id="footer">
 				<p id="controls">
-					<a id="slideback" href="#">&laquo;</a>
+					<button id="slideback">&laquo;</button>
 					<select id="slideselect"></select>
-					<a id="slidenext" href="#">&raquo;</a>
+					<button id="slidenext">&raquo;</button>
 				</p>
 			</div>
 

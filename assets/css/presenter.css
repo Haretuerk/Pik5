@@ -7,20 +7,16 @@
 /* Basics */
 body {
 	font-family: Helvetica, Arial, sans-serif;
-	background:#000;
-	color:#FFF;
+	background:#FFF;
+	color:#000;
 	line-height:1.4
-}
-h1 {
-	font-size:2em;
-	padding:1em 0.5em;
-	margin:0;
 }
 h2 {
 	clear:both;
-	font-size:1.5em;
-	padding:0.75em;
+	font-size:1em;
+	padding:1em;
 	margin:0;
+	color:#000;
 }
 p, ul, ol, iframe {
 	margin:0 1em
@@ -28,13 +24,13 @@ p, ul, ol, iframe {
 
 
 /* Layout */
-#wrapper {
+#wrapper, .wrapper {
 	width:960px;
 	margin:0 auto;
 }
 #viewer {
 	position:relative;
-	margin-top:16px;
+	margin-top:72px;
 }
 #presenter-current {
 	float:left;
@@ -42,43 +38,51 @@ p, ul, ol, iframe {
 #presenter-next {
 	text-align:right;
 	position:absolute;
-	top:68px;
+	top:44px;
 	right:0;
 }
-#footer {
-	font-size:1.25em;
-	text-align:center;
-	opacity:1 !important;
-}
-#footer select, #footer a {
-	font-size:inherit;
-	margin:0.5em;
-}
-#footer a {
-	font-size:1.5em;
-	color:#FFF;
-	text-decoration:none;
-}
 
 
-/* Timer */
+/* Header */
+#header {
+}
+h1 {
+	font-size:1.3em;
+	margin:1em;
+	padding:0;
+	float:left;
+}
+#timecontainer {
+	font-size:1.3em;
+	margin:1em;
+	padding:0;
+	float:right;
+}
 #timer {
 	font-weight:normal;
 	text-align:right;
 	float:right;
 }
-.now {
+#time{
 	font-weight:bold;
-	display:block;
-	font-size:0.5em;
+}
+
+
+/* Footer */
+#footer {
+	text-align:center;
+	opacity:1 !important;
+}
+#footer select, #footer button {
+	margin:0.5em;
 }
 
 
 /* Presentation windows */
 iframe {
-	border:4px solid #000;
+	border:4px solid #FFF;
 	background:#FFF;
-	-moz-box-shadow:0 0 24px #689;
-	-webkit-box-shadow:0 0 20px #689;
-	box-shadow:0 0 20px #689;
+	-moz-box-shadow:0 0 24px #333;
+	-webkit-box-shadow:0 0 20px #333;
+	box-shadow:0 0 20px #333;
 }

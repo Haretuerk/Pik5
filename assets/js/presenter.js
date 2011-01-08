@@ -18,10 +18,6 @@ disableForms(next)
 $('#numslides').text(current.jQuery('.slide').length)
 
 
-// Get the presentation's title
-$('title').text(current.jQuery('title').text())
-
-
 // Start from where the presenter was launched
 var fragment = parseInt(/#([0-9]+)$/.exec(window.location)[1])
 if(!fragment){
@@ -34,12 +30,13 @@ $('#currentindex').html(fragment)
 
 // Setup the timer
 var time = $('#time')
+  , now = $('#now')
   , h = 0
   , m = 0
   , s = 0
   , timer = setInterval(function(){
 	s++
-	var now = new Date()
+	var t = new Date()
 	if(s == 60){
 		s = 0; m++
 	}
@@ -52,7 +49,8 @@ var time = $('#time')
 	if(m.length == 1) { m = '0' + m }
 	s = s + ''
 	if(s.length == 1) { s = '0' + s }
-	time.html(h + ':' + m + ':' + s + '<span class="now">' + now.toLocaleTimeString() + '</span>')
+	time.html(h + ':' + m + ':' + s)
+	now.html(t.toLocaleTimeString())
 }, 1000)
 
 
