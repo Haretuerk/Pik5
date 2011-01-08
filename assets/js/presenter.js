@@ -70,47 +70,81 @@ window.addEventListener('message', function(event){
 }, false)
 
 
+// Report an error if window.opener goes missing
+var windowError = function(){
+	alert("Error: can't find presentation window. Was the presentation window closed or refreshed?");
+}
+
+
 // Delegeate control events
-if(window.opener){
-	$(document).bind({
-		'slidenext': function(){
+$(document).bind({
+	'slidenext': function(){
+		if(window.opener){
 			window.opener.slideNext()
-		},
-		'slideback': function(){
+		}
+		else{
+			windowError();
+		}
+	},
+	'slideback': function(){
+		if(window.opener){
 			window.opener.slideBack()
-		},
-		'overlay': function(){
+		}
+		else{
+			windowError();
+		}
+	},
+	'overlay': function(){
+		if(window.opener){
 			window.opener.toggleOverlay()
 		}
-	})
-}
+		else{
+			windowError();
+		}
+	}
+})
 
 
 // Setup control links
 $('#slidenext').click(function(evt){
-	window.opener.slideNext()
-	evt.preventDefault()
+	if(window.opener){
+		window.opener.slideNext()
+	}
+	else{
+		windowError();
+	}
 })
 $('#slideback').click(function(evt){
-	window.opener.slideBack()
-	evt.preventDefault()
+	if(window.opener){
+		window.opener.slideBack()
+	}
+	else{
+		windowError();
+	}
 })
 
 
 // Setup control menu
 var slideselect = $('#slideselect')
 var slideselecthtml = ''
-window.opener.slides.each(function(index, slide){
-	slide = $(slide)
-	if(slide.attr('id') !== 'end'){
-		var headlines = slide.find('h1, h2, h3, h4, h5, h6')
-		var optiontitle = (headlines[0]) ? index + 1 + ': ' + $(headlines[0]).text() : index
-		slideselecthtml += '<option value="' + index + '">' + optiontitle + '</option>'
-	}
-})
+if(window.opener){
+	window.opener.slides.each(function(index, slide){
+		slide = $(slide)
+		if(slide.attr('id') !== 'end'){
+			var headlines = slide.find('h1, h2, h3, h4, h5, h6')
+			var optiontitle = (headlines[0]) ? index + 1 + ': ' + $(headlines[0]).text() : index
+			slideselecthtml += '<option value="' + index + '">' + optiontitle + '</option>'
+		}
+	})
+}
 slideselect.html(slideselecthtml)
 slideselect.change(function(){
-	window.opener.slideTo(slideselect.val(), true)
+	if(window.opener){
+		window.opener.slideTo(slideselect.val(), true)
+	}
+	else{
+		windowError();
+	}
 })
 
 
