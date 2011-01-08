@@ -1,17 +1,21 @@
+// Report an error if window.opener goes missing
+var windowError = function(){
+	alert("Error: can't find presentation window. Was the presentation window closed or refreshed?");
+}
+
+
 window.onload = function(){
+
+
+// Do we have a presentation open?
+if(!window.opener){
+	windowError();
+}
 
 
 // Get the iframes
 var current = $('#current')[0].contentWindow
   , next = $('#next')[0].contentWindow
-
-
-// Disable forms inside the iframes
-var disableForms = function(win){
-	win.jQuery('input, textarea, select, button').attr('disabled', 'disabled')
-}
-disableForms(current)
-disableForms(next)
 
 
 // Get the number of slides
@@ -68,12 +72,6 @@ window.addEventListener('message', function(event){
 		updateSelect(currentslide);
 	}
 }, false)
-
-
-// Report an error if window.opener goes missing
-var windowError = function(){
-	alert("Error: can't find presentation window. Was the presentation window closed or refreshed?");
-}
 
 
 // Delegeate control events
