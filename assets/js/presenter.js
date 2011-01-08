@@ -67,6 +67,7 @@ window.addEventListener('message', function(event){
 		current.slideTo(currentslide)
 		next.slideTo(nextslide)
 		$('#currentindex').text(nextslide)
+		updateSelect(currentslide);
 	}
 }, false)
 
@@ -82,6 +83,45 @@ if(window.opener){
 		},
 		'overlay': function(){
 			window.opener.toggleOverlay()
+		}
+	})
+}
+
+
+// Setup control links
+$('#slidenext').click(function(evt){
+	window.opener.slideNext()
+	evt.preventDefault()
+})
+$('#slideback').click(function(evt){
+	window.opener.slideBack()
+	evt.preventDefault()
+})
+
+
+// Setup control menu
+var slideselect = $('#slideselect')
+var slideselecthtml = ''
+window.opener.slides.each(function(index, slide){
+	slide = $(slide)
+	if(slide.attr('id') !== 'end'){
+		var headlines = slide.find('h1, h2, h3, h4, h5, h6')
+		var optiontitle = (headlines[0]) ? index + 1 + ': ' + $(headlines[0]).text() : index
+		slideselecthtml += '<option value="' + index + '">' + optiontitle + '</option>'
+	}
+})
+slideselect.html(slideselecthtml)
+slideselect.change(function(){
+	window.opener.slideTo(slideselect.val(), true)
+})
+
+
+// Keep the slide select up to date
+var options = slideselect.find('option')
+var updateSelect = function(index){
+	options.each(function(i, option){
+		if(option.value == index){
+			slideselect.val(index)
 		}
 	})
 }

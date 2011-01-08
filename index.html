@@ -11,7 +11,7 @@
 		<script src="assets/prettify/prettify.js"></script> <!-- Remove this if your presentation is not about code -->
 		<script src="assets/js/jquery-1.4.3.min.js"></script> <!-- DO NOT DELETE THIS! -->
 		<script src="assets/js/shared.js"></script> <!-- DO NOT DELETE THIS! -->
-		<script src="assets/js/p5.js"></script> <!-- DO NOT DELETE THIS! -->
+		<script src="assets/js/pik5.js"></script> <!-- DO NOT DELETE THIS! -->
 		<script src="custom.js"></script> <!-- Use this for your own slide programming -->
 	</head>
 	<body onload="prettyPrint()"> <!-- Remove the onload property if your presentation is not about coding -->
@@ -87,7 +87,7 @@
 				<div class="slide" id="demo">
 					<h2>Programming demo</h2>
 					<p id="demobox">
-						Hallo World!
+						Hello World!
 					</p>
 					<p>
 						Note that the slide events do not fire in the presenter view.
@@ -109,19 +109,31 @@
 
 
 				<div class="slide">
-					<h2>Presenter mode</h2>
+					<h2>Presenter view</h2>
 					<p>
-						Click the "Presenter view" link in the footer area to open the presenter view in a new window. The presenter view
-						shows a timer and lets you see the currently displayed slide and which slide comes next.
+						Move your mouse to the bottom of the presentation to make the command bar appear. Click the "Launch presenter view" link in the footer area to open
+						the presenter view in a new window. The presenter view offers more control elements, shows a timer and lets you see the currently displayed slide
+						and which slide comes next.
 					</p>
+				</div>
+
+
+				<div class="slide">
+					<h2>Controls</h2>
+					<ul>
+						<li>Use the arrow keys to advance the slides</li>
+						<li>The presenter view offers a drop down menu for all slides in the presentation</li>
+						<li>The F5 key hides the presentation</li>
+						<li>Supported Hardware: Logitech Presenter R400</li>
+					</ul>
 				</div>
 
 
 				<div class="slide">
 					<h2>Code highlighting included</h2>
 					<p>
-						P5 comes with <a href="http://code.google.com/p/google-code-prettify/">google-code-prettify</a>, which allows syntax
-						highlighting of source code snippets in a HTML page. Just add <code class="prettyprint">class="prettyprint"</code> to
+						P5 comes with <a href="http://code.google.com/p/google-code-prettify/">google-code-prettify</a>, a JavaScript library that lets you add syntax
+						highlighting to code snippets in a HTML page. Just add <code class="prettyprint">class="prettyprint"</code> to
 						your <code class="prettyprint">&lt;pre&gt;</code> and <code class="prettyprint">&lt;code&gt;</code> elements.
 					</p>
 				</div>
@@ -165,15 +177,7 @@
 
 
 		<div id="footer">
-			<p class="left">
-				12/09/2010 - <a href="mailto:peter@peterkroener.de">peter@peterkroener.de</a>
-			</p>
-			<p class="right" id="controls">
-				<a id="startpresenter" href="#">Presenter view</a>
-				<select id="slideselect"></select>
-				<a id="slideback" href="#">&laquo;</a>
-				<a id="slidenext" href="#">&raquo;</a>
-			</p>
+			<a id="startpresenter" href="#">Launch presenter view</a>
 		</div>
 
 

@@ -60,18 +60,6 @@ h1 {
 	background:#000;
 	color:#FFF;
 }
-#footer a {
-	border:none;
-	margin:0 8px;
-}
-#footer p {
-	font-size:0.5em;
-	margin:0;
-	padding:1em;
-}
-#footer select {
-	font-size:inherit;
-}
 
 
 /* Style for individual slides */
