@@ -101,6 +101,9 @@ if(!inPresenter){
 	if(startpresenter){
 		startpresenter.click(function(evt){
 			presenter = window.open('presenter.html#' + current, 'presenter')
+			if(!presenter){
+				alert('Unable to open presenter. Please disable your popup blocker.')
+			}
 			evt.preventDefault()
 		})
 	}
