@@ -30,7 +30,7 @@ p, ul, ol, iframe {
 }
 #viewer {
 	position:relative;
-	margin-top:72px;
+	margin-top:52px;
 }
 #presenter-current {
 	float:left;
@@ -44,8 +44,6 @@ p, ul, ol, iframe {
 
 
 /* Header */
-#header {
-}
 h1 {
 	font-size:1.3em;
 	margin:1em;
@@ -72,6 +70,34 @@ h1 {
 #footer {
 	text-align:center;
 	opacity:1 !important;
+}
+#progress{
+	width:928px;
+	margin:0 auto;
+}
+#progress div {
+	float:left;
+	font-weight:bold;
+	font-size:9px;
+	cursor:pointer;
+	margin:1px;
+	padding:6px 0;
+}
+#progress div.future {
+	background:#999;
+	color:#FFF;
+}
+#progress div.current {
+	background:#000;
+	color:#FFF;
+}
+#progress div.past {
+	background:#666;
+	color:#AAA;
+}
+#controls {
+	clear:both;
+	padding-top:8px;
 }
 #footer select, #footer button {
 	margin:0.5em;

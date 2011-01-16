@@ -18,18 +18,52 @@ var current = $('#current')[0].contentWindow
   , next = $('#next')[0].contentWindow
 
 
+// Slides
+var slides = current.jQuery('.slide')
+
 // Get the number of slides
-$('#numslides').text(current.jQuery('.slide').length)
+$('#numslides').text(slides.length)
 
 
 // Start from where the presenter was launched
-var fragment = parseInt(/#([0-9]+)$/.exec(window.location)[1])
-if(!fragment){
-	fragment = 0
+var index = parseInt(/#([0-9]+)$/.exec(window.location)[1])
+if(!index){
+	index = 0
 }
-current.slideTo(fragment)
-next.slideTo(++fragment)
-$('#currentindex').html(fragment)
+current.slideTo(index)
+next.slideTo(index + 1)
+$('#currentindex').html(index + 1)
+
+
+// Add the slides to the progress bar
+var progress = $('#progress')
+var slidewidth = Math.floor(928/slides.length) - 2
+slides.each(function(index){
+	var slidenum = index + 1
+	var segment = $('<div style="width:' + slidewidth + 'px">' + slidenum + '</div>')
+	segment.click(function(){
+		window.opener.slideTo(index)
+	})
+	progress.append(segment)
+})
+
+
+// Update the progress bar
+var updateProgress = function(current){
+	var segments = jQuery('#progress div')
+	segments.each(function(index, segment){
+		if(index < current){
+			jQuery(segment).addClass('past').removeClass('future').removeClass('current')
+		}
+		else if(index > current){
+			jQuery(segment).addClass('future').removeClass('past').removeClass('current')
+		}
+		else {
+			jQuery(segment).addClass('current').removeClass('past').removeClass('future')
+		}
+	})
+}
+updateProgress(index)
 
 
 // Setup the timer
@@ -70,6 +104,7 @@ window.addEventListener('message', function(event){
 		next.slideTo(nextslide)
 		$('#currentindex').text(nextslide)
 		updateSelect(currentslide);
+		updateProgress(currentslide)
 	}
 }, false)
 
