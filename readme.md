@@ -24,10 +24,11 @@ How to use
    2. Add styling to style.css and print.css
    3. If needed, add some jQuery
    4. Run the presentation (index.html) in Firefox 3.6+, Safari 5+, Opera 10.60+ or Chrome 5+
-   5. Navigate slides using the arrow keys. Hide the presentation using the F5 or ESC key
+   5. Click the "Launch presenter view" link in the footer area to open the presenter view in a new window
+   6. Navigate slides using the arrow keys. Hide the presentation using the F5 or ESC key
 
 
-  [1]: http://github.com/SirPepe/P5
+  [1]: http://pik5.peterkroener.de
   [2]: http://github.com/SirPepe/P5
   [3]: http://code.google.com/p/google-code-prettify/
   [4]: http://www.logitech.com/en-us/mice-pointers/presentation-remote/devices/5993

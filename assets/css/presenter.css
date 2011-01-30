@@ -9,7 +9,7 @@ body {
 	font-family: Helvetica, Arial, sans-serif;
 	background:#FFF;
 	color:#000;
-	line-height:1.4
+	line-height:1.4;
 }
 h2 {
 	clear:both;
@@ -19,7 +19,14 @@ h2 {
 	color:#000;
 }
 p, ul, ol, iframe {
-	margin:0 1em
+	margin:0 1em;
+}
+label {
+	font-size:0.8em;
+	font-weight:bold;
+	display:block;
+	text-align:left;
+	margin-bottom:4px;
 }
 
 
@@ -32,13 +39,23 @@ p, ul, ol, iframe {
 	position:relative;
 	margin-top:52px;
 }
+#viewer::after {
+	display:block;
+	visibility:hidden;
+	display:block;
+	font-size:0;
+	content:'.';
+	clear:both;
+	height:0;
+	zoom: 1;
+}
 #presenter-current {
 	float:left;
 }
 #presenter-next {
 	text-align:right;
 	position:absolute;
-	top:44px;
+	top:48px;
 	right:0;
 }
 
@@ -67,16 +84,18 @@ h1 {
 
 
 /* Footer */
-#footer {
+#presenterfooter {
+	position:relative;
 	text-align:center;
 	opacity:1 !important;
 }
-#progress{
+#progress {
 	width:928px;
-	margin:0 auto;
+	margin:8px auto;
 }
 #progress div {
 	float:left;
+	min-width:26px;
 	font-weight:bold;
 	font-size:9px;
 	cursor:pointer;
@@ -92,15 +111,23 @@ h1 {
 	color:#FFF;
 }
 #progress div.past {
-	background:#666;
+	background:#333;
 	color:#AAA;
 }
 #controls {
-	clear:both;
-	padding-top:8px;
+	text-align:left;
+	position:absolute;
+	top:-80px;
+	right:20px;
+	width:332px;
+	margin:0;
+	padding:0;
 }
-#footer select, #footer button {
-	margin:0.5em;
+#controls select {
+	width:256px;
+}
+#controls button {
+	width:32px;
 }
 
 
