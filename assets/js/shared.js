@@ -14,6 +14,9 @@ if(typeof SharedWorker == 'function'){
 	_PIK5.port = _PIK5.worker.port;
 	_PIK5.hasWorker = true;
 }
+else {
+	_PIK5.hasWorker = false;
+}
 
 
 // Catch keypress events

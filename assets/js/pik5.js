@@ -1,11 +1,15 @@
-var slides, presenter, slideTo, slideNext, slideBack, toggleOverlay;
+// Global vars and functions
+_PIK5.slides,
+_PIK5.slideTo,
+_PIK5.slideNext,
+_PIK5.slideBack,
+_PIK5.toggleOverlay;
 
 
 jQuery(document).ready(function($){
 
 
-var origin = '*'
-  , current = 0
+var current = 0
   , frame = $('#frame')
   , framecontainer = $('#framecontainer')
   , inPresenter = /presenter\.html(#([0-9]+))*$/.test(parent.location + '');
@@ -13,7 +17,10 @@ var origin = '*'
 
 // Add "End of presentation" slide
 framecontainer.append('<div id="end" class="slide"><p>End of presentation.</p></div>');
-slides = $('.slide');
+
+
+// All slides, including "End of presentation"
+_PIK5.slides = $('.slide');
 
 
 // Setup font
@@ -23,9 +30,9 @@ $('body').css('font-size', frameratio + 'em');
 
 // Setup frame and slides
 frame.css('overflow', 'hidden');
-framecontainer.css('width', 100 * slides.length + '%');
-var slidesize = framecontainer.width() / slides.length;
-slides.css('width', slidesize + 'px');
+framecontainer.css('width', 100 * _PIK5.slides.length + '%');
+var slidesize = framecontainer.width() / _PIK5.slides.length;
+_PIK5.slides.css('width', slidesize + 'px');
 
 
 // The overlay element used to hide the presentation
@@ -41,41 +48,35 @@ var overlay = $('<div></div>').hide().css({
 
 
 // The function used to hide the presentation
-toggleOverlay = function(){
+_PIK5.toggleOverlay = function(){
 	overlay.toggle()
-	if(presenter && !inPresenter){
-		presenter.postMessage('toggleOverlay', origin);
-	}
 }
 
 
 // Slide to the slide index
-slideTo = function(index){
+_PIK5.slideTo = function(index){
 	index = parseInt(index);
-	if(slides[index]){
+	if(_PIK5.slides[index]){
 		if(!inPresenter){
-			$(slides[current]).trigger('deactivate');
-			$(slides[index]).trigger('activate');
+			$(_PIK5.slides[current]).trigger('deactivate');
+			$(_PIK5.slides[index]).trigger('activate');
 			$(document).trigger('slidechange', index);
 		}
 		framecontainer.css('left', index * slidesize * -1);
-		if(presenter && !inPresenter){
-			presenter.postMessage(index, origin);
-		}
 		current = index;
 	}
 }
 
 
 // Go to the next slide
-slideNext = function(){
-	slideTo(current + 1);
+_PIK5.slideNext = function(){
+	_PIK5.slideTo(current + 1);
 }
 
 
 // Go to the previous slide
-slideBack = function(){
-	slideTo(current - 1);
+_PIK5.slideBack = function(){
+	_PIK5.slideTo(current - 1);
 }
 
 
@@ -83,31 +84,17 @@ slideBack = function(){
 if(!inPresenter){
 	$(document).bind({
 		'slidenext': function(){
-			slideNext()
+			_PIK5.slideNext()
 		},
 		'slideback': function(){
-			slideBack()
+			_PIK5.slideBack()
 		},
 		'overlay': function(){
-			toggleOverlay()
+			_PIK5.toggleOverlay()
 		}
 	});
 }
 
-
-// Launch the presenter view. Do nothing if the page is embedded in presenter.html
-if(!inPresenter){
-	var startpresenter = $('#startpresenter');
-	if(startpresenter){
-		startpresenter.click(function(evt){
-			presenter = window.open('presenter.html#' + current, 'presenter');
-			if(!presenter){
-				alert('Unable to open presenter. Please disable your popup blocker.');
-			}
-			evt.preventDefault();
-		});
-	}
-}
 
 
 });
