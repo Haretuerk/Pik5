@@ -7,7 +7,8 @@ jQuery(document).ready(function($){
 
 var frame = $('#frame')
   , framecontainer = $('#framecontainer')
-  , inPresenter = /presenter\.html(#([0-9]+))*$/.test(parent.location + '');
+  , inPresenter = /presenter\.html(#([0-9]+))*$/.test(parent.location + '')
+  , slidesize;
 
 
 // Add "End of presentation" slide
@@ -16,21 +17,6 @@ framecontainer.append('<div id="end" class="slide"><p>End of presentation.</p></
 
 // All slides, including "End of presentation"
 _PIK5.slides = $('.slide');
-
-
-// Setup font and frame size
-var slidesize;
-frame.css('overflow', 'hidden');
-framecontainer.css('width', 100 * _PIK5.slides.length + '%');
-var setFontFrameSize = function(){
-	var frameratio = (frame.height() + frame.width()) / 1000;
-	$('body').css('font-size', frameratio + 'em');
-	slidesize = framecontainer.width() / _PIK5.slides.length;
-	_PIK5.slides.css('width', slidesize + 'px');
-};
-$(window).bind('resize', setFontFrameSize);
-setFontFrameSize();
-
 
 
 // The overlay element used to hide the presentation
@@ -150,6 +136,20 @@ if(!inPresenter){
 		}
 	});
 }
+
+
+// Setup font and frame size
+frame.css('overflow', 'hidden');
+framecontainer.css('width', 100 * _PIK5.slides.length + '%');
+var setFontFrameSize = function(){
+	var frameratio = (frame.height() + frame.width()) / 1000;
+	$('body').css('font-size', frameratio + 'em');
+	slidesize = framecontainer.width() / _PIK5.slides.length;
+	_PIK5.slides.css('width', slidesize + 'px');
+	_PIK5.slideTo(_PIK5.current);
+};
+$(window).bind('resize', setFontFrameSize);
+setFontFrameSize();
 
 
 });
