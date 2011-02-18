@@ -1,9 +1,5 @@
 // Global vars and functions
-_PIK5.slides,
-_PIK5.slideTo,
-_PIK5.slideNext,
-_PIK5.slideBack,
-_PIK5.toggleOverlay;
+_PIK5.slides, _PIK5.hidden = 0, _PIK5.slideTo, _PIK5.slideNext, _PIK5.slideBack, _PIK5.setHidden, _PIK5.toggleHidden;
 
 
 jQuery(document).ready(function($){
@@ -47,39 +43,86 @@ var overlay = $('<div></div>').hide().css({
 }).appendTo(frame);
 
 
-// The function used to hide the presentation
-_PIK5.toggleOverlay = function(){
-	overlay.toggle()
-}
+// Hide the presentation
+_PIK5.setHidden = function(state, propagate){
+	// Hide
+	if(state === 1){
+		_PIK5.hidden = 1;
+		overlay.hide();
+	}
+	// Show
+	else if(state === 0){
+		_PIK5.hidden = 0;
+		overlay.show();
+	}
+	// Update worker
+	if(_PIK5.hasWorker && propagate){
+		_PIK5.port.postMessage({
+			hidden: _PIK5.hidden
+		});
+	}
+};
+
+// Toggle the hidden state
+_PIK5.toggleHidden = function(){
+	if(_PIK5.hidden === 1){
+		_PIK5.setHidden(0, true);
+	}
+	else if(_PIK5.hidden === 0){
+		_PIK5.setHidden(1, true);
+	}
+};
 
 
 // Slide to the slide index
-_PIK5.slideTo = function(index){
+_PIK5.slideTo = function(index, propagate){
 	index = parseInt(index);
 	if(_PIK5.slides[index]){
 		if(!inPresenter){
 			$(_PIK5.slides[current]).trigger('deactivate');
 			$(_PIK5.slides[index]).trigger('activate');
 			$(document).trigger('slidechange', index);
-			if(_PIK5.hasWorker){
-				_PIK5.port.postMessage(index);
+			if(_PIK5.hasWorker && propagate){
+				_PIK5.port.postMessage({
+					slidenum: index
+				});
 			}
 		}
 		framecontainer.css('left', index * slidesize * -1);
 		current = index;
 	}
-}
+};
 
 
 // Go to the next slide
 _PIK5.slideNext = function(){
-	_PIK5.slideTo(current + 1);
-}
+	_PIK5.slideTo(current + 1, true);
+};
 
 
 // Go to the previous slide
 _PIK5.slideBack = function(){
-	_PIK5.slideTo(current - 1);
+	_PIK5.slideTo(current - 1, true);
+};
+
+
+// Setup web worker
+if(!inPresenter && _PIK5.hasWorker){
+	// Recieve messages from worker
+	_PIK5.port.addEventListener('message', function(evt){
+		var data = evt.data;
+		if(data && typeof data.slidenum != 'undefined'){
+			_PIK5.slideTo(data.slidenum, false);
+		}
+		if(data && typeof data.hidden != 'undefined'){
+			if(data.hidden != _PIK5.hidden){
+				_PIK5.setHidden(data.hidden, false);
+			}
+		}
+	});
+	_PIK5.port.start();
+	// Send an initial sync request to the worker
+	_PIK5.port.postMessage(null);
 }
 
 
@@ -87,17 +130,16 @@ _PIK5.slideBack = function(){
 if(!inPresenter){
 	$(document).bind({
 		'slidenext': function(){
-			_PIK5.slideNext()
-		},
-		'slideback': function(){
-			_PIK5.slideBack()
-		},
-		'overlay': function(){
-			_PIK5.toggleOverlay()
+			_PIK5.slideNext();
+		}
+		, 'slideback': function(){
+			_PIK5.slideBack();
+		}
+		, 'overlay': function(){
+			_PIK5.toggleHidden();
 		}
 	});
 }
-
 
 
 });

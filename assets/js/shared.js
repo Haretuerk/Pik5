@@ -11,11 +11,12 @@ var _PIK5 = {};
 // Create the worker for sharing information between presentation and presenter
 if(typeof SharedWorker == 'function'){
 	_PIK5.worker = new SharedWorker('assets/js/worker.js', '_PIK5');
+	_PIK5.worker.onerror = function(err){
+		if(typeof console != 'undefined'){
+			console.log(err);
+		}
+	};
 	_PIK5.port = _PIK5.worker.port;
-	_PIK5.port.addEventListener('message', function(evt){
-		console.log(evt.data);
-	});
-	_PIK5.port.start();
 	_PIK5.hasWorker = true;
 }
 else {
