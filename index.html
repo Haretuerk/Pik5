@@ -32,7 +32,7 @@
 				<div class="slide" id="start">
 					<h2>PIK<sup>5</sup></h2>
 					<p>
-						HTML5 presentation framework
+						HTML5 presentation framework (beta)
 					</p>
 				</div>
 
@@ -41,7 +41,7 @@
 					<h2>Features</h2>
 					<ul>
 						<li>100% HTML5, CSS and JavaScript (jQuery)</li>
-						<li>Presenter mode</li>
+						<li>Multiple presentation views and presenter mode</li>
 						<li>Programmable slides</li>
 						<li>Built-in code highlighting (<a href="http://code.google.com/p/google-code-prettify/">google-code-prettify</a>)</li>
 						<li>Supported/tested hardware: Logitech Presenter R400</li>
@@ -56,7 +56,7 @@
 						<li>Add styling to style.css and print.css</li>
 						<li>If needed, programm the slides (see next slides)</li>
 						<li>Navigate slides using the arrow keys. You can hide the presentation using the F5 or ESC key</li>
-						<li>Run the presentation (index.html) in Firefox 3.6+, Safari 5+, Opera 9.60+ or Chrome 5+</li>
+						<li>Run the presentation (<code>index.html</code>) in Firefox 3.6+, Safari 5+, Opera 10.60+ or Chrome 8+ (recommended)</li>
 					</ol>
 				</div>
 
@@ -110,11 +110,20 @@
 
 
 				<div class="slide">
+					<h2>Multiple presentation views</h2>
+					<p>
+						Open <code>index.html</code> in new browser windows to create multiple views for the presentation. The windows will synchronize
+						 automatically. Multiple presentation views require Chrome 8 or newer.
+					</p>
+				</div>
+
+
+				<div class="slide">
 					<h2>Presenter view</h2>
 					<p>
-						Move your mouse to the bottom of the presentation to make the command bar appear. Click the "Launch presenter view" link in the footer area to open
-						the presenter view in a new window. The presenter view offers more control elements, shows a timer and lets you see the currently displayed slide
-						and which slide comes next.
+						Navigate to <code>presenter.html</code> in a new window to use the presenter view. The presenter view offers more
+						control elements, shows a timer and lets you see the currently displayed slide and which slide comes next. The
+						presenter view currently requires Chrome 8 or newer.
 					</p>
 				</div>
 
@@ -155,6 +164,7 @@
 					<ol>
 						<li>Allow control and configuration of the timer</li>
 						<li>Allow configuration of slide transistion effects</li>
+						<li>Make synchronization work in more browsers (Opera 11 and Safari 5 should be possible)</li>
 						<li>Add more themes</li>
 					</ol>
 				</div>
