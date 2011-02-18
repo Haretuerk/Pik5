@@ -1,12 +1,11 @@
 // Global vars and functions
-_PIK5.slides, _PIK5.hidden = 0, _PIK5.slideTo, _PIK5.slideNext, _PIK5.slideBack, _PIK5.setHidden, _PIK5.toggleHidden;
+_PIK5.slides, _PIK5.current = 0, _PIK5.hidden = 0, _PIK5.slideTo, _PIK5.slideNext, _PIK5.slideBack, _PIK5.setHidden, _PIK5.toggleHidden;
 
 
 jQuery(document).ready(function($){
 
 
-var current = 0
-  , frame = $('#frame')
+var frame = $('#frame')
   , framecontainer = $('#framecontainer')
   , inPresenter = /presenter\.html(#([0-9]+))*$/.test(parent.location + '');
 
@@ -41,6 +40,14 @@ var overlay = $('<div></div>').hide().css({
 	'z-index': 1337,
 	background:'#000'
 }).appendTo(frame);
+
+
+// Make the overlay only semi opaque for the presenter view
+if(inPresenter){
+	overlay.css({
+		background: 'rgba(0, 0, 0, 0.75)'
+	});
+}
 
 
 // Hide the presentation
@@ -79,7 +86,7 @@ _PIK5.slideTo = function(index, propagate){
 	index = parseInt(index);
 	if(_PIK5.slides[index]){
 		if(!inPresenter){
-			$(_PIK5.slides[current]).trigger('deactivate');
+			$(_PIK5.slides[_PIK5.current]).trigger('deactivate');
 			$(_PIK5.slides[index]).trigger('activate');
 			$(document).trigger('slidechange', index);
 			if(_PIK5.hasWorker && propagate){
@@ -89,20 +96,20 @@ _PIK5.slideTo = function(index, propagate){
 			}
 		}
 		framecontainer.css('left', index * slidesize * -1);
-		current = index;
+		_PIK5.current = index;
 	}
 };
 
 
 // Go to the next slide
 _PIK5.slideNext = function(){
-	_PIK5.slideTo(current + 1, true);
+	_PIK5.slideTo(_PIK5.current + 1, true);
 };
 
 
 // Go to the previous slide
 _PIK5.slideBack = function(){
-	_PIK5.slideTo(current - 1, true);
+	_PIK5.slideTo(_PIK5.current - 1, true);
 };
 
 
@@ -135,7 +142,7 @@ if(!inPresenter){
 		, 'slideback': function(){
 			_PIK5.slideBack();
 		}
-		, 'overlay': function(){
+		, 'hide': function(){
 			_PIK5.toggleHidden();
 		}
 	});

@@ -1,16 +1,14 @@
-// Report an error if window.opener goes missing
-var windowError = function(){
-	alert("Error: can't find presentation window. Was the presentation window closed or refreshed?");
-}
+/*
+	presenter.js
+	Script for the presenter
+*/
 
 
-window.onload = function(){
+// Global vars and functions
+_PIK5.slides, _PIK5.current = 0, _PIK5.hidden = 0;
 
 
-// Do we have a presentation open?
-if(!window.opener){
-	windowError();
-}
+jQuery(window).load(function(){
 
 
 // Get the iframes
@@ -18,31 +16,53 @@ var current = $('#current')[0].contentWindow
   , next = $('#next')[0].contentWindow;
 
 
-// Slides
+// Get the current windows slides
 var slides = current.jQuery('.slide');
 
-// Get the number of slides
+
+// Set the number of slides
 $('#numslides').text(slides.length);
 
 
-// Start from where the presenter was launched
-var index = parseInt(/#([0-9]+)$/.exec(window.location)[1]);
-if(!index){
-	index = 0;
+// Setup the Worker
+if(_PIK5.hasWorker){
+	// Recieve messages from worker
+	_PIK5.port.addEventListener('message', function(evt){
+		var data = evt.data;
+		if(data && typeof data.slidenum != 'undefined'){
+			data.slidenum = parseInt(data.slidenum);
+			_PIK5.current = data.slidenum;
+			current._PIK5.slideTo(data.slidenum, false);
+			next._PIK5.slideTo(data.slidenum + 1, false);
+			$('#currentindex').html(data.slidenum + 1); // Current slide display
+			updateProgress(data.slidenum);              // Update progress bar
+			updateSelect(data.slidenum);                // Update select field
+		}
+		if(data && typeof data.hidden != 'undefined'){
+			data.hidden = parseInt(data.hidden);
+			_PIK5.hidden = data.hidden;
+			current._PIK5.setHidden(data.hidden, false);
+			next._PIK5.setHidden(data.hidden, false);
+		}
+	});
+	_PIK5.port.start();
+	// Send an initial sync request to the worker
+	_PIK5.port.postMessage(null);
 }
-current.slideTo(index);
-next.slideTo(index + 1);
-$('#currentindex').html(index + 1);
 
 
 // Add the slides to the progress bar
 var progress = $('#progress');
 var slidewidth = Math.floor(928/slides.length) - 2;
 slides.each(function(index){
-	var slidenum = index + 1;
+	var slidenum = index;
 	var segment = $('<div style="width:' + slidewidth + 'px">' + slidenum + '</div>');
 	segment.click(function(){
-		window.opener.slideTo(index);
+		if(_PIK5.hasWorker){
+			_PIK5.port.postMessage({
+				'slidenum': slidenum
+			});
+		}
 	});
 	progress.append(segment);
 });
@@ -63,7 +83,6 @@ var updateProgress = function(current){
 		}
 	});
 }
-updateProgress(index);
 
 
 // Setup the timer
@@ -92,104 +111,59 @@ var time = $('#time')
 }, 1000);
 
 
-// Recieve messages from the presentation
-window.addEventListener('message', function(event){
-	if(event.data == 'toggleOverlay'){
-		current.toggleOverlay();
-	}
-	else {
-		var currentslide = parseInt(event.data);
-		var nextslide = parseInt(event.data) + 1;
-		current.slideTo(currentslide);
-		next.slideTo(nextslide);
-		$('#currentindex').text(nextslide);
-		updateSelect(currentslide);
-		updateProgress(currentslide);
-	}
-}, false);
-
-
-// Delegeate control events
-$(document).bind({
-	'slidenext': function(){
-		if(window.opener){
-			window.opener.slideNext();
-		}
-		else{
-			windowError();
-		}
-	},
-	'slideback': function(){
-		if(window.opener){
-			window.opener.slideBack();
-		}
-		else{
-			windowError();
-		}
-	},
-	'overlay': function(){
-		if(window.opener){
-			window.opener.toggleOverlay();
-		}
-		else{
-			windowError();
-		}
-	}
-});
-
-
 // Setup control links
 $('#slidenext').click(function(evt){
-	if(window.opener){
-		window.opener.slideNext();
-	}
-	else{
-		windowError();
-	}
+	$(document).trigger('slidenext');
 });
 $('#slideback').click(function(evt){
-	if(window.opener){
-		window.opener.slideBack();
-	}
-	else{
-		windowError();
-	}
+	$(document).trigger('slideback');
 });
 
 
 // Setup control menu
 var slideselect = $('#slideselect');
 var slideselecthtml = '';
-if(window.opener && window.opener.slides){
-	window.opener.slides.each(function(index, slide){
-		slide = $(slide);
-		if(slide.attr('id') !== 'end'){
-			var headlines = slide.find('h1, h2, h3, h4, h5, h6');
-			var optiontitle = (headlines[0]) ? index + 1 + ': ' + $(headlines[0]).text() : index;
-			slideselecthtml += '<option value="' + index + '">' + optiontitle + '</option>';
-		}
-	})
-}
+current._PIK5.slides.each(function(index, slide){
+	slide = $(slide);
+	if(slide.attr('id') !== 'end'){
+		var headlines = slide.find('h1, h2, h3, h4, h5, h6');
+		var optiontitle = (headlines[0]) ? index + 1 + ': ' + $(headlines[0]).text() : index;
+		slideselecthtml += '<option value="' + index + '">' + optiontitle + '</option>';
+	}
+});
 slideselect.html(slideselecthtml);
 slideselect.change(function(){
-	if(window.opener){
-		window.opener.slideTo(slideselect.val(), true);
-	}
-	else{
-		windowError();
-	}
+	_PIK5.port.postMessage({
+		'slidenum': slideselect.val()
+	});
 })
 
 
 // Keep the slide select up to date
-var options = slideselect.find('option');
 var updateSelect = function(index){
-	options.each(function(i, option){
-		if(option.value == index){
-			slideselect.val(index);
-		}
-	});
+	slideselect.val(index);
 }
 
 
-}
+// Delegeate control events
+$(document).bind({
+	'slidenext': function(){
+		_PIK5.port.postMessage({
+			'slidenum': _PIK5.current + 1
+		});
+	},
+	'slideback': function(){
+		_PIK5.port.postMessage({
+			'slidenum': _PIK5.current - 1
+		});
+	},
+	'hide': function(){
+		_PIK5.hidden = (_PIK5.hidden === 1) ? 0 : 1;
+		_PIK5.port.postMessage({
+			hidden: _PIK5.hidden
+		});
+	}
+});
+
+
+});

@@ -35,7 +35,7 @@ jQuery(document).ready(function($){
 			$(this).trigger('slideback');
 		}
 		else if(code == 116 || code == 190 || code == 27){
-			$(this).trigger('overlay');
+			$(this).trigger('hide');
 			evt.preventDefault();
 		}
 	});
