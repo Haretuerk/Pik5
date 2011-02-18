@@ -18,16 +18,19 @@ framecontainer.append('<div id="end" class="slide"><p>End of presentation.</p></
 _PIK5.slides = $('.slide');
 
 
-// Setup font
-var frameratio = (frame.height() + frame.width()) / 1000;
-$('body').css('font-size', frameratio + 'em');
-
-
-// Setup frame and slides
+// Setup font and frame size
+var slidesize;
 frame.css('overflow', 'hidden');
 framecontainer.css('width', 100 * _PIK5.slides.length + '%');
-var slidesize = framecontainer.width() / _PIK5.slides.length;
-_PIK5.slides.css('width', slidesize + 'px');
+var setFontFrameSize = function(){
+	var frameratio = (frame.height() + frame.width()) / 1000;
+	$('body').css('font-size', frameratio + 'em');
+	slidesize = framecontainer.width() / _PIK5.slides.length;
+	_PIK5.slides.css('width', slidesize + 'px');
+};
+$(window).bind('resize', setFontFrameSize);
+setFontFrameSize();
+
 
 
 // The overlay element used to hide the presentation
