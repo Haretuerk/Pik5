@@ -12,6 +12,10 @@ var _PIK5 = {};
 if(typeof SharedWorker == 'function'){
 	_PIK5.worker = new SharedWorker('assets/js/worker.js', '_PIK5');
 	_PIK5.port = _PIK5.worker.port;
+	_PIK5.port.addEventListener('message', function(evt){
+		console.log(evt.data);
+	});
+	_PIK5.port.start();
 	_PIK5.hasWorker = true;
 }
 else {

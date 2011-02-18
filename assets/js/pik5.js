@@ -61,6 +61,9 @@ _PIK5.slideTo = function(index){
 			$(_PIK5.slides[current]).trigger('deactivate');
 			$(_PIK5.slides[index]).trigger('activate');
 			$(document).trigger('slidechange', index);
+			if(_PIK5.hasWorker){
+				_PIK5.port.postMessage(index);
+			}
 		}
 		framecontainer.css('left', index * slidesize * -1);
 		current = index;
