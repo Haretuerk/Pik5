@@ -10,6 +10,7 @@ jQuery(window).load(function(){
 // Get the iframes
 var current = $('#current')[0].contentWindow
   , next = $('#next')[0].contentWindow;
+_PIK5.location = current.location.href;
 
 
 // Get the current windows slides
@@ -25,6 +26,7 @@ if(_PIK5.hasWorker){
 	// Recieve messages from worker
 	_PIK5.port.addEventListener('message', function(evt){
 		var data = evt.data;
+		// Active slides change
 		if(data && typeof data.slidenum != 'undefined'){
 			data.slidenum = parseInt(data.slidenum);
 			_PIK5.current = data.slidenum;
@@ -34,11 +36,21 @@ if(_PIK5.hasWorker){
 			updateProgress(data.slidenum);               // Update progress bar
 			updateSelect(data.slidenum);                 // Update select field
 		}
+		// Hidden state changes
 		if(data && typeof data.hidden != 'undefined'){
 			data.hidden = parseInt(data.hidden);
 			_PIK5.hidden = data.hidden;
 			current._PIK5.setHidden(data.hidden, false);
 			next._PIK5.setHidden(data.hidden, false);
+		}
+		// Active presentation changes
+		if(data && typeof data.location != 'undefined'){
+			console.log(data.location);
+			if(data.location !== null && data.location != _PIK5.location){
+				_PIK5.location = data.location;
+				current.location = _PIK5.location;
+				next.location = _PIK5.location;
+			}
 		}
 	});
 	_PIK5.port.start();
@@ -159,6 +171,15 @@ $(document).bind({
 			hidden: _PIK5.hidden
 		});
 	}
+});
+
+
+// Iframes must re-scroll on load
+$(current).bind('load', function(){
+	current.scrollTo(_PIK5.current, false);
+});
+$(next).bind('load', function(){
+	next.scrollTo(_PIK5.current + 1, false);
 });
 
 
