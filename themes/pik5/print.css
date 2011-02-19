@@ -17,12 +17,6 @@ body {
 }
 
 
-/* We don't need the control elements for print */
-#footer a, #footer select {
-	display:none;
-}
-
-
 /* Overrule the js style changes */
 body {
 	font-size:120% !important;

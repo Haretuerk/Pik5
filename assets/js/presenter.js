@@ -2,7 +2,7 @@
 	presenter.js
 	Script for the presenter
 */
-
+// TODO: Fragmente für andere Iframe-Inhalte
 
 // Global vars and functions
 _PIK5.slides, _PIK5.current = 0, _PIK5.hidden = 0;
