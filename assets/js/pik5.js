@@ -19,23 +19,8 @@ framecontainer.css('width', 100 * _PIK5.slides.length + '%');
 
 
 // The overlay element used to hide the presentation
-var overlay = $('<div></div>').hide().css({
-	position: 'absolute',
-	top: 0,
-	right: 0,
-	bottom: 0,
-	left: 0,
-	'z-index': 1337,
-	background:'#000'
-}).appendTo(frame);
-
-
-// Make the overlay only semi opaque for the presenter view
-if(inPresenter){
-	overlay.css({
-		background: 'rgba(0, 0, 0, 0.75)'
-	});
-}
+var overlayclass = (inPresenter) ? 'overlay overlay-presenter' : 'overlay';
+var overlay = $('<div class="' + overlayclass + '"></div>').hide().appendTo(frame);
 
 
 // Hide the presentation

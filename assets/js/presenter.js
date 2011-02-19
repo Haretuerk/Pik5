@@ -45,7 +45,6 @@ if(_PIK5.hasWorker){
 		}
 		// Active presentation changes
 		if(data && typeof data.location != 'undefined'){
-			console.log(data.location);
 			if(data.location !== null && data.location != _PIK5.location){
 				_PIK5.location = data.location;
 				current.location = _PIK5.location;
