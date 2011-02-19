@@ -5,7 +5,11 @@
 
 
 // PIK5 global object
-var _PIK5 = {};
+var _PIK5 = {
+	slides:null,
+	current:0,
+	hidden:0
+};
 
 
 // Create the worker for sharing information between presentation and presenter

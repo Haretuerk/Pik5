@@ -2,10 +2,6 @@
 	presenter.js
 	Script for the presenter
 */
-// TODO: Fragmente für andere Iframe-Inhalte
-
-// Global vars and functions
-_PIK5.slides, _PIK5.current = 0, _PIK5.hidden = 0;
 
 
 jQuery(window).load(function(){
@@ -34,9 +30,9 @@ if(_PIK5.hasWorker){
 			_PIK5.current = data.slidenum;
 			current._PIK5.slideTo(data.slidenum, false);
 			next._PIK5.slideTo(data.slidenum + 1, false);
-			$('#currentindex').html(data.slidenum + 1); // Current slide display
-			updateProgress(data.slidenum);              // Update progress bar
-			updateSelect(data.slidenum);                // Update select field
+			$('#currentindex').html(data.slidenum + 1);  // Current slide display
+			updateProgress(data.slidenum);               // Update progress bar
+			updateSelect(data.slidenum);                 // Update select field
 		}
 		if(data && typeof data.hidden != 'undefined'){
 			data.hidden = parseInt(data.hidden);

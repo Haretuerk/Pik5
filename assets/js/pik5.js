@@ -1,5 +1,5 @@
 // Global vars and functions
-_PIK5.slides, _PIK5.current = 0, _PIK5.hidden = 0, _PIK5.slideTo, _PIK5.slideNext, _PIK5.slideBack, _PIK5.setHidden, _PIK5.toggleHidden;
+_PIK5.slideTo, _PIK5.slideNext, _PIK5.slideBack, _PIK5.setHidden, _PIK5.toggleHidden;
 
 
 jQuery(document).ready(function($){
@@ -72,17 +72,16 @@ _PIK5.toggleHidden = function(){
 
 // Slide to the slide index
 _PIK5.slideTo = function(index, propagate){
+	// Jump to index
 	index = parseInt(index);
 	if(_PIK5.slides[index]){
-		if(!inPresenter){
-			$(_PIK5.slides[_PIK5.current]).trigger('deactivate');
-			$(_PIK5.slides[index]).trigger('activate');
-			$(document).trigger('slidechange', index);
-			if(_PIK5.hasWorker && propagate){
-				_PIK5.port.postMessage({
-					slidenum: index
-				});
-			}
+		$(_PIK5.slides[_PIK5.current]).trigger('deactivate');
+		$(_PIK5.slides[index]).trigger('activate');
+		$(document).trigger('slidechange', index);
+		if(_PIK5.hasWorker && propagate){
+			_PIK5.port.postMessage({
+				slidenum: index
+			});
 		}
 		framecontainer.css('left', index * slidesize * -1);
 		_PIK5.current = index;
@@ -108,6 +107,7 @@ if(!inPresenter && _PIK5.hasWorker){
 	_PIK5.port.addEventListener('message', function(evt){
 		var data = evt.data;
 		if(data && typeof data.slidenum != 'undefined'){
+			var index = parseInt(data.slidenum);
 			_PIK5.slideTo(data.slidenum, false);
 		}
 		if(data && typeof data.hidden != 'undefined'){
@@ -138,6 +138,24 @@ if(!inPresenter){
 }
 
 
+// Absolute center function
+var positionCenter = function(){
+	var supercenter = $('.pik5-center');
+	var slideH = $('.slide').height();
+	var slideW = $('.slide').width();
+	supercenter.each(function(index, el){
+		el = $(el);
+		var elH = el.outerHeight(true);
+		var elW = el.outerWidth(true);
+		el.css({
+			position: 'relative',
+			top: (slideH - elH) / 2 + 'px',
+			left:  (slideW - elW) / 2 + 'px'
+		});
+	});
+};
+
+
 // Setup font and frame size
 frame.css('overflow', 'hidden');
 framecontainer.css('width', 100 * _PIK5.slides.length + '%');
@@ -148,8 +166,13 @@ var setFontFrameSize = function(){
 	_PIK5.slides.css('width', slidesize + 'px');
 	_PIK5.slideTo(_PIK5.current);
 };
+
+
+// Resize and reposition on load and on resize
 $(window).bind('resize', setFontFrameSize);
-setFontFrameSize();
+$(window).bind('resize', positionCenter);
+$(window).bind('load', setFontFrameSize);
+$(window).bind('load', positionCenter);
 
 
 });
