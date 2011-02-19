@@ -11,12 +11,11 @@ var frame = $('#frame')
   , slidesize;
 
 
-// Add "End of presentation" slide
+// Setup frame and frameconteiner css, add end slide
 framecontainer.append('<div id="end" class="slide"><p>End of presentation.</p></div>');
-
-
-// All slides, including "End of presentation"
 _PIK5.slides = $('.slide');
+frame.css('overflow', 'hidden');
+framecontainer.css('width', 100 * _PIK5.slides.length + '%');
 
 
 // The overlay element used to hide the presentation
@@ -54,10 +53,11 @@ _PIK5.setHidden = function(state, propagate){
 	// Update worker
 	if(_PIK5.hasWorker && propagate){
 		_PIK5.port.postMessage({
-			hidden: _PIK5.hidden
+			'hidden': _PIK5.hidden
 		});
 	}
 };
+
 
 // Toggle the hidden state
 _PIK5.toggleHidden = function(){
@@ -80,7 +80,7 @@ _PIK5.slideTo = function(index, propagate){
 		$(document).trigger('slidechange', index);
 		if(_PIK5.hasWorker && propagate){
 			_PIK5.port.postMessage({
-				slidenum: index
+				'slidenum': index
 			});
 		}
 		framecontainer.css('left', index * slidesize * -1);
@@ -106,35 +106,25 @@ if(!inPresenter && _PIK5.hasWorker){
 	// Recieve messages from worker
 	_PIK5.port.addEventListener('message', function(evt){
 		var data = evt.data;
+		// React to changed slide number
 		if(data && typeof data.slidenum != 'undefined'){
 			var index = parseInt(data.slidenum);
 			_PIK5.slideTo(data.slidenum, false);
 		}
+		// React to changed hidden state
 		if(data && typeof data.hidden != 'undefined'){
 			if(data.hidden != _PIK5.hidden){
 				_PIK5.setHidden(data.hidden, false);
 			}
 		}
+		// React to changed location
+		if(data && typeof data.location != 'undefined'){
+			if(data.location !== null && data.location != _PIK5.location){
+				location.href = data.location;
+			}
+		}
 	});
 	_PIK5.port.start();
-	// Send an initial sync request to the worker
-	_PIK5.port.postMessage(null);
-}
-
-
-// Change slides or hide presentation on keypress. Do nothing if the page is embedded in presenter.html
-if(!inPresenter){
-	$(document).bind({
-		'slidenext': function(){
-			_PIK5.slideNext();
-		}
-		, 'slideback': function(){
-			_PIK5.slideBack();
-		}
-		, 'hide': function(){
-			_PIK5.toggleHidden();
-		}
-	});
 }
 
 
@@ -156,9 +146,7 @@ var positionCenter = function(){
 };
 
 
-// Setup font and frame size
-frame.css('overflow', 'hidden');
-framecontainer.css('width', 100 * _PIK5.slides.length + '%');
+// Setup font and slide size
 var setFontFrameSize = function(){
 	var frameratio = (frame.height() + frame.width()) / 1000;
 	$('body').css('font-size', frameratio + 'em');
@@ -168,11 +156,40 @@ var setFontFrameSize = function(){
 };
 
 
+// Gets called onload
+var initFunction = function(){
+	setFontFrameSize();
+	positionCenter();
+	_PIK5.location = location.href;
+	if(!inPresenter && _PIK5.hasWorker){
+		// Important initial sync request
+		_PIK5.port.postMessage({
+			'location': _PIK5.location
+		});
+	}
+};
+
+
 // Resize and reposition on load and on resize
 $(window).bind('resize', setFontFrameSize);
 $(window).bind('resize', positionCenter);
-$(window).bind('load', setFontFrameSize);
-$(window).bind('load', positionCenter);
+$(window).bind('load', initFunction);
+
+
+// Change slides or hide presentation on keypress. Do nothing if the page is embedded in presenter.html
+if(!inPresenter){
+	$(document).bind({
+		'slidenext': function(){
+			_PIK5.slideNext();
+		}
+		, 'slideback': function(){
+			_PIK5.slideBack();
+		}
+		, 'hide': function(){
+			_PIK5.toggleHidden();
+		}
+	});
+}
 
 
 });
