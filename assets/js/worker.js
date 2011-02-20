@@ -1,8 +1,9 @@
 // Connection pool, slide number and hidden state
 var _PIK5 = {
-	pool: []
-	, slidenum: 0
-	, hidden: 0
+	pool:     [],
+	slidenum: 0,
+	hidden:   0,
+	location: null
 }
 
 
@@ -24,13 +25,17 @@ self.onconnect = function(event){
 		if(data && typeof data.hidden != 'undefined'){
 			_PIK5.hidden = data.hidden;
 		}
+		if(data && typeof data.location != 'undefined'){
+			_PIK5.location = data.location;
+		}
 
 		// Send changed state to all connections
 		var poolsize = _PIK5.pool.length;
 		for(var i = 0; i < poolsize; i++){
 			_PIK5.pool[i].postMessage({
-				'slidenum': _PIK5.slidenum
-				, 'hidden': _PIK5.hidden
+				'slidenum': _PIK5.slidenum,
+				'hidden':   _PIK5.hidden,
+				'location': _PIK5.location
 			});
 		}
 

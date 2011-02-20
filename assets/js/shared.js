@@ -6,9 +6,10 @@
 
 // PIK5 global object
 var _PIK5 = {
-	slides:null,
-	current:0,
-	hidden:0
+	slides:   null,
+	current:  0,
+	hidden:   0,
+	location: null
 };
 
 

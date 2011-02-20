@@ -29,7 +29,7 @@
 <div id="framecontainer"> <!-- DO NOT DELETE THIS! -->
 
 
-<div class="slide" id="start">
+<div class="pik5-slide" id="start">
 	<h2>PIK<sup>5</sup></h2>
 	<p>
 		HTML5 presentation framework (beta)
@@ -37,7 +37,7 @@
 </div>
 
 
-<div class="slide">
+<div class="pik5-slide">
 	<h2>Features</h2>
 	<ul>
 		<li>100% HTML5, CSS and JavaScript (jQuery)</li>
@@ -49,19 +49,19 @@
 </div>
 
 
-<div class="slide">
+<div class="pik5-slide">
 	<h2>How to use</h2>
 	<ol>
-		<li>Open index.html and edit/add slides (<code class="prettyprint">&lt;div class="slide"&gt;</code>)</li>
+		<li>Open index.html and edit/add slides (<code class="prettyprint">&lt;div class="pik5-slide"&gt;</code>)</li>
 		<li>Add styling to style.css and print.css</li>
 		<li>If needed, programm the slides (see next slides)</li>
 		<li>Navigate slides using the arrow keys. You can hide the presentation using the F5 or ESC key</li>
-		<li>Run the presentation (<code>index.html</code>) in Firefox 3.6+, Safari 5+, Opera 10.60+ or Chrome 8+ (recommended)</li>
+		<li>Run the presentation in Firefox 3.6+, Safari 5+, Opera 10.60+ or Chrome 8+ (recommended)</li>
 	</ol>
 </div>
 
 
-<div class="slide">
+<div class="pik5-slide">
 	<h2>Programming presentations</h2>
 	<ul>
 		<li>An <code>activate</code> event is fired on the slides when they are shown and a <code>deactivate</code> event when hidden</li>
@@ -70,7 +70,7 @@
 </div>
 
 
-<div class="slide">
+<div class="pik5-slide">
 	<h2>Simple programming example</h2>
 	<pre class="prettyprint">jQuery(document).ready(function($){
     $('#demo').bind({
@@ -85,7 +85,7 @@
 </div>
 
 
-<div class="slide" id="demo">
+<div class="pik5-slide" id="demo">
 	<h2>Programming demo</h2>
 	<p id="demobox">
 		Hello World!
@@ -106,16 +106,27 @@
 </div>
 
 
-<div class="slide">
+<div class="pik5-slide">
 	<h2>Multiple presentation views</h2>
 	<p>
-		Open <code>index.html</code> in new browser windows to create multiple views for the presentation. The windows will synchronize
+		Open the presentation file in new browser windows to create multiple views for the presentation. The windows will synchronize
 		 automatically. Multiple presentation views require Chrome 8 or newer.
 	</p>
 </div>
 
 
-<div class="slide">
+<div class="pik5-slide">
+	<h2>Code highlighting</h2>
+	<p>
+		PIK5 comes with <a href="http://code.google.com/p/google-code-prettify/">google-code-prettify</a>, a JavaScript
+		library that lets you add syntax highlighting to code snippets in a HTML page. Just add
+		<code class="prettyprint">class="prettyprint"</code> to your <code class="prettyprint">&lt;pre&gt;</code> and
+		<code class="prettyprint">&lt;code&gt;</code> elements.
+	</p>
+</div>
+
+
+<div class="pik5-slide">
 	<h2>Presenter view</h2>
 	<p>
 		Navigate to <code>presenter.html</code> in a new window to use the presenter view. The presenter view offers more
@@ -125,10 +136,10 @@
 </div>
 
 
-<div class="slide">
+<div class="pik5-slide">
 	<h2>Controls</h2>
 	<ul>
-		<li>Use the left and right arrow keys to advance the slides</li>
+		<li>Use the left and right arrow keys to navigate through the slides</li>
 		<li>The presenter view offers a drop down menu for all slides in the presentation</li>
 		<li>The F5 key hides the presentation</li>
 		<li>Supported/tested hardware: Logitech Presenter R400</li>
@@ -136,18 +147,26 @@
 </div>
 
 
-<div class="slide">
-	<h2>Code highlighting included</h2>
+<div class="pik5-slide">
+	<h2>Reserved css classes</h2>
+	<ul>
+		<li><code>pik5-slide</code>: slide container</li>
+		<li><code>pik5-center</code>: centers a element horizontally and vertically in the current slide</li>
+		<li><code>prettyprint</code>: adds syntax highlighting to <code class="prettyprint">&lt;pre&gt;</code> and
+		<code class="prettyprint">&lt;code&gt;</code> elements</li>
+	</ul>
+</div>
+
+
+<div class="pik5-slide">
+	<h2>Theming</h2>
 	<p>
-		Pik5 comes with <a href="http://code.google.com/p/google-code-prettify/">google-code-prettify</a>, a JavaScript
-		library that lets you add syntax highlighting to code snippets in a HTML page. Just add
-		<code class="prettyprint">class="prettyprint"</code> to your <code class="prettyprint">&lt;pre&gt;</code> and
-		<code class="prettyprint">&lt;code&gt;</code> elements.
+		Themes for PIK5 are simple css files that are placed in the <code>themes</code> folder.
 	</p>
 </div>
 
 
-<div class="slide">
+<div class="pik5-slide">
 	<h2>Troubleshooting and bugs</h2>
 	<ul>
 		<li>If slides appear with the wrong font size in the presenter, refresh the presenter view</li>
@@ -158,7 +177,7 @@
 </div>
 
 
-<div class="slide">
+<div class="pik5-slide">
 	<h2>To do</h2>
 	<ol>
 		<li>Allow control and configuration of the timer</li>
@@ -169,7 +188,7 @@
 </div>
 
 
-<div class="slide">
+<div class="pik5-slide">
 	<h2>Links</h2>
 	<ul>
 		<li><a href="https://github.com/SirPepe/Pik5/downloads">Download</a></li>
