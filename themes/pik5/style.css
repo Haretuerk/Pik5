@@ -73,16 +73,16 @@ a:active {
 
 /* Code highlighting for dark backgrounds */
 .str { color:#0C0 }
-.kwd { color:#FFF; font-weight:bold; }
-.com { color:#888 }
-.typ { color:#606 }
-.lit { color:#066 }
-.pun { color:#CCC }
+.kwd { color:#0BF; font-weight:bold }
+.com { color:#999; font-style:italic }
+.typ { color:#C0C; font-weight:bold }
+.lit { color:#0EB }
+.pun { color:#999 }
 .pln { color:#FFF }
-.tag { color:#0BF; font-weight:bold; }
+.tag { color:#0BF; font-weight:bold }
 .atn { color:#2FF }
 .atv { color:#0C0 }
-.dec { color:#F0F; font-style:italic; }
+.dec { color:#F0F; font-style:italic }
 pre.prettyprint { padding:0; border:none }
 ol.linenums { margin-top:0; margin-bottom:0 }
 li.L0,li.L1,li.L2,li.L3,li.L5,li.L6,li.L7,li.L8 { list-style:none }
