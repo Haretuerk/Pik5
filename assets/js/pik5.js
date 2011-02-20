@@ -12,8 +12,8 @@ var frame = $('#frame')
 
 
 // Setup frame and frameconteiner css, add end slide
-framecontainer.append('<div id="end" class="slide"><p>End of presentation.</p></div>');
-_PIK5.slides = $('.slide');
+framecontainer.append('<div id="end" class="pik5-slide"><p>End of presentation.</p></div>');
+_PIK5.slides = $('.pik5-slide');
 frame.css('overflow', 'hidden');
 framecontainer.css('width', 100 * _PIK5.slides.length + '%');
 
@@ -118,8 +118,8 @@ if(!inPresenter && _PIK5.hasWorker){
 // Absolute center function
 var positionCenter = function(){
 	var supercenter = $('.pik5-center');
-	var slideH = $('.slide').height();
-	var slideW = $('.slide').width();
+	var slideH = $('.pik5-slide').height();
+	var slideW = $('.pik5-slide').width();
 	supercenter.each(function(index, el){
 		el = $(el);
 		var elH = el.outerHeight(true);

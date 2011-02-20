@@ -20,7 +20,7 @@ Features
 How to use
 ----------
 
-   1. Open index.html and edit/add slides (`<div class="slide">`)
+   1. Open index.html and edit/add slides (`<div class="pik5-slide">`)
    2. Add styling to style.css and print.css
    3. If needed, add some jQuery
    4. Run the presentation (index.html) in Firefox 3.6+, Safari 5+, Opera 10.60+ or Chrome 8+ (recommended)

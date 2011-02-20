@@ -17,7 +17,7 @@ jQuery(document).ready(function($){
 		_PIK5.currentWindow = this.contentWindow;
 		_PIK5.presenterSlideTo(_PIK5.currentWindow, _PIK5.current);
 		_PIK5.location = _PIK5.currentWindow.location.href;
-		_PIK5.slides = _PIK5.currentWindow.jQuery('.slide');
+		_PIK5.slides = _PIK5.currentWindow.jQuery('.pik5-slide');
 		_PIK5.presenterUiInit();
 	});
 	$('#next').bind('load', function(){
