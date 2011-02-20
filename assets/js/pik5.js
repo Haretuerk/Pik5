@@ -20,7 +20,10 @@ framecontainer.css('width', 100 * _PIK5.slides.length + '%');
 
 // The overlay element used to hide the presentation
 var overlayclass = (inPresenter) ? 'overlay overlay-presenter' : 'overlay';
-var overlay = $('<div class="' + overlayclass + '"></div>').hide().appendTo(frame);
+var overlay = $('<div class="' + overlayclass + '"></div>').appendTo(frame);
+if(_PIK5.hidden == 0){
+	overlay.hide();
+}
 
 
 // Hide the presentation
@@ -28,12 +31,12 @@ _PIK5.setHidden = function(state, propagate){
 	// Hide
 	if(state === 1){
 		_PIK5.hidden = 1;
-		overlay.hide();
+		overlay.show();
 	}
 	// Show
 	else if(state === 0){
 		_PIK5.hidden = 0;
-		overlay.show();
+		overlay.hide();
 	}
 	// Update worker
 	if(_PIK5.hasWorker && propagate){
@@ -46,10 +49,10 @@ _PIK5.setHidden = function(state, propagate){
 
 // Toggle the hidden state
 _PIK5.toggleHidden = function(){
-	if(_PIK5.hidden === 1){
+	if(_PIK5.hidden == 1){
 		_PIK5.setHidden(0, true);
 	}
-	else if(_PIK5.hidden === 0){
+	else if(_PIK5.hidden == 0){
 		_PIK5.setHidden(1, true);
 	}
 };
@@ -88,7 +91,6 @@ _PIK5.slideBack = function(){
 
 // Setup web worker
 if(!inPresenter && _PIK5.hasWorker){
-	// Recieve messages from worker
 	_PIK5.port.addEventListener('message', function(evt){
 		var data = evt.data;
 		// React to changed slide number
