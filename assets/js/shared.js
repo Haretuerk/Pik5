@@ -26,6 +26,7 @@ if(typeof SharedWorker == 'function'){
 }
 else {
 	_PIK5.hasWorker = false;
+	console.log("Your Browser doesn't support Shared Workers. Presenter mode not available :(");
 }
 
 

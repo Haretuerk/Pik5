@@ -1,5 +1,9 @@
-// Global vars and functions
-_PIK5.slideTo, _PIK5.slideNext, _PIK5.slideBack, _PIK5.setHidden, _PIK5.toggleHidden;
+// Public vars and functions
+_PIK5.slideTo,
+_PIK5.slideNext,
+_PIK5.slideBack,
+_PIK5.setHidden,
+_PIK5.toggleHidden;
 
 
 jQuery(document).ready(function($){
@@ -93,21 +97,25 @@ _PIK5.slideBack = function(){
 if(!inPresenter && _PIK5.hasWorker){
 	_PIK5.port.addEventListener('message', function(evt){
 		var data = evt.data;
-		// React to changed slide number
-		if(data && typeof data.slidenum != 'undefined'){
-			var index = parseInt(data.slidenum);
-			_PIK5.slideTo(data.slidenum, false);
-		}
-		// React to changed hidden state
-		if(data && typeof data.hidden != 'undefined'){
-			if(data.hidden != _PIK5.hidden){
-				_PIK5.setHidden(data.hidden, false);
+		if(data){
+			// React to changed slide number
+			if(typeof data.slidenum != 'undefined'){
+				var index = parseInt(data.slidenum);
+				if(index !== _PIK5.current){
+					_PIK5.slideTo(data.slidenum, false);
+				}
 			}
-		}
-		// React to changed location
-		if(data && typeof data.location != 'undefined'){
-			if(data.location !== null && data.location != _PIK5.location){
-				location.href = data.location;
+			// React to changed hidden state
+			if(typeof data.hidden != 'undefined'){
+				if(data.hidden != _PIK5.hidden){
+					_PIK5.setHidden(data.hidden, false);
+				}
+			}
+			// React to changed location
+			if(typeof data.location != 'undefined'){
+				if(data.location !== null && data.location != _PIK5.location){
+					location.href = data.location;
+				}
 			}
 		}
 	});
@@ -143,8 +151,15 @@ var setFontFrameSize = function(){
 };
 
 
-// Gets called onload
-var initFunction = function(){
+// Resize and reposition on load and on resize
+$(window).bind('resize', function(){
+	setFontFrameSize();
+	positionCenter();
+});
+
+
+// Run init function
+$(window).bind('load', function(){
 	setFontFrameSize();
 	positionCenter();
 	_PIK5.location = location.href;
@@ -154,13 +169,7 @@ var initFunction = function(){
 			'location': _PIK5.location
 		});
 	}
-};
-
-
-// Resize and reposition on load and on resize
-$(window).bind('resize', setFontFrameSize);
-$(window).bind('resize', positionCenter);
-$(window).bind('load', initFunction);
+});
 
 
 // Change slides or hide presentation on keypress. Do nothing if the page is embedded in presenter.html
