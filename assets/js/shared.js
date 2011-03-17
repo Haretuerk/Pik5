@@ -1,21 +1,30 @@
 // Manages the presentation's state
 var PIK5 = function(){
 
-	var win = $(window);
+	var self         = this;
+	var win          = $(window);
+	this.slides      = null;
+	this.current     = 0;
+	this.hidden      = 0;
+	this.location    = null;
+	this.inPresenter = /presenter\.html(#([0-9]+))*$/.test(parent.location + '');
 
-	this.slides =   null;
-	this.current =  0;
-	this.hidden =   0;
-	this.location = null;
-
+	// Setup worker
 	if(typeof SharedWorker == 'function'){
-		var worker = new SharedWorker('assets/js/worker.js', 'PIK5');
-		this.worker = worker.port;
+		this.worker = new SharedWorker('assets/js/worker.js', 'Pik5');
 	}
 	else {
 		this.worker = null;
 	}
 
+	// Wrapper for worker.postMessage that does nothing if no worker is available
+	this.postMessage = function(data){
+		if(this.worker !== null){
+			this.worker.port.postMessage(data);
+		}
+	}
+
+	// Main presentation control functions
 	this.slideNext = function(){
 		var newIndex = this.current + 1;
 		if(this.slides[newIndex]){
@@ -31,14 +40,20 @@ var PIK5 = function(){
 	this.slideTo = function(index){
 		this.current = index;
 		win.trigger('slideTo', index);
+		this.postMessage({ 'current': this.current });
 	}
 	this.hide = function(){
 		this.hidden = 1;
 		win.trigger('hide');
+		this.postMessage({ 'hidden': this.hidden });
 	}
 	this.show = function(){
 		this.hidden = 0;
 		win.trigger('show');
+		this.postMessage({ 'hidden': this.hidden });
+	}
+	this.setHidden = function(value){
+		(value == 1) ? this.hide() : this.show();
 	}
 	this.toggleHidden = function(){
 		if(this.hidden == 0){
@@ -47,6 +62,33 @@ var PIK5 = function(){
 		else {
 			this.show();
 		}
+	}
+
+	// Recieve events from the worker
+	if(this.worker !== null){
+		this.worker.port.addEventListener('message', function(evt){
+			if(evt.data){
+				// Slide number
+				if(typeof evt.data.current != 'undefined'){
+					if(evt.data.current !== self.current){
+						self.slideTo(evt.data.current);
+					}
+				}
+				// Hidden state
+				if(typeof evt.data.hidden != 'undefined'){
+					if(evt.data.hidden !== self.hidden){
+						self.setHidden(evt.data.hidden);
+					}
+				}
+				// Location
+				if(typeof evt.data.location != 'undefined'){
+					if(evt.data.location !== null && evt.data.location != self.location){
+						location.href = evt.data.location;
+					}
+				}
+			}
+		});
+		this.worker.port.start();
 	}
 
 }

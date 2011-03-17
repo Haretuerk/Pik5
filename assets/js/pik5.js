@@ -2,10 +2,9 @@
 jQuery(document).ready(function($){
 
 
-var frame = $('#frame')
-  , framecontainer = $('#framecontainer')
-  , inPresenter = /presenter\.html(#([0-9]+))*$/.test(parent.location + '')
-  , slidesize;
+var frame = $('#frame'),
+    framecontainer = $('#framecontainer'),
+    slidesize;
 
 
 // Setup frame and frameconteiner css, add end slide
@@ -16,7 +15,7 @@ framecontainer.css('width', 100 * pik5.slides.length + '%');
 
 
 // The overlay element used to hide the presentation
-var overlayclass = (inPresenter) ? 'overlay overlay-presenter' : 'overlay';
+var overlayclass = (pik5.inPresenter) ? 'overlay overlay-presenter' : 'overlay';
 var overlay = $('<div class="' + overlayclass + '"></div>').hide().appendTo(frame);
 
 
