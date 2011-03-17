@@ -64,9 +64,14 @@ $(window).bind({
 	}
 });
 
-// Hide presentation on page change
-$(window).bind('goTo', function(){
+// Handle page change
+var changePage = function(evt, url){
 	overlay.show();
+	location.href = url;
+};
+$(window).bind({
+	'goTo':     changePage,
+	'location': changePage
 });
 
 });

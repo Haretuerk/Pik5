@@ -1,13 +1,65 @@
-/*
-	presenter.js
-	Script for the presenter
-*/
+jQuery(document).ready(function($){
+
+var currentWindow, nextWindow;
+
+// Timer
+(function(){
+	var time = $('#time'),
+	    now = $('#now'),
+	    h = 0 , m = 0 , s = 0;
+	setInterval(function(){
+		s++;
+		var t = new Date();
+		if(s == 60){
+			s = 0; m++;
+		}
+		if(m == 60){
+			m = 0; h++;
+		}
+		h = h + '';
+		if(h.length == 1) { h = '0' + h }
+		m = m + '';
+		if(m.length == 1) { m = '0' + m }
+		s = s + '';
+		if(s.length == 1) { s = '0' + s }
+		time.html(h + ':' + m + ':' + s);
+		now.html(t.toLocaleTimeString());
+	}, 1000);
+})();
+
+// Setup current slide view
+$('#current').bind('load', function(){
+	currentWindow = this.contentWindow;
+});
+
+// Setup next slide view
+$('#next').bind('load', function(){
+	nextWindow = this.contentWindow;
+});
+
+});
+
+// Execute show/hide change
+$(window).bind({
+	'slideTo': function(evt, index){
+		console.log(index);
+	},
+	'show': function(){
+		console.log('Show-Event');
+	},
+	'hide': function(){
+		console.log('Hide-Event');
+	},
+	'location': function(evt, url){
+		console.log(url);
+	},
+});
 
 
-_PIK5.currentWindow = null;
+
+/*_PIK5.currentWindow = null;
 _PIK5.nextWindow    = null;
 _PIK5.location      = null;
-
 
 jQuery(document).ready(function($){
 	_PIK5.setupWorker();
@@ -167,28 +219,4 @@ _PIK5.updateProgress = function(){
 };
 
 
-_PIK5.startTimer = function(){
-	var time = $('#time')
-	  , now = $('#now')
-	  , h = 0
-	  , m = 0
-	  , s = 0;
-	setInterval(function(){
-		s++;
-		var t = new Date();
-		if(s == 60){
-			s = 0; m++;
-		}
-		if(m == 60){
-			m = 0; h++;
-		}
-		h = h + '';
-		if(h.length == 1) { h = '0' + h }
-		m = m + '';
-		if(m.length == 1) { m = '0' + m }
-		s = s + '';
-		if(s.length == 1) { s = '0' + s }
-		time.html(h + ':' + m + ':' + s);
-		now.html(t.toLocaleTimeString());
-	}, 1000);
-};
+*/

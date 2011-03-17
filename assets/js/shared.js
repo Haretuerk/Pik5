@@ -6,8 +6,13 @@ var PIK5 = function(){
 	this.slides      = null;
 	this.current     = 0;
 	this.hidden      = 0;
-	this.location    = location.href;
+	this.location    = null;
 	this.inPresenter = /presenter\.html(#([0-9]+))*$/.test(parent.location + '');
+
+	// Setup location
+	if(!this.inPresenter){
+		this.location = location.href;
+	}
 
 	// Setup worker
 	if(typeof SharedWorker == 'function'){
@@ -69,8 +74,10 @@ var PIK5 = function(){
 			this.show(propagate);
 		}
 	}
+	this.setLocation = function(url){
+		win.trigger('location', url);
+	}
 	this.goTo = function(url, propagate){
-		location.href = url;
 		win.trigger('goTo', url);
 		if(propagate){
 			this.postMessage({ 'goTo': url });
@@ -96,7 +103,7 @@ var PIK5 = function(){
 				// Location
 				if(typeof evt.data.location != 'undefined'){
 					if(evt.data.location !== null && evt.data.location != self.location){
-						location.href = evt.data.location;
+						self.setLocation(evt.data.location);
 					}
 				}
 				// goTo event
