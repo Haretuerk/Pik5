@@ -12,29 +12,38 @@ self.onconnect = function(evt){
 
 	// Recieve messages
 	port.onmessage = function(msg){
-
-		// Update state
 		if(msg.data){
-			if(typeof msg.data.current != 'undefined'){
-				current = msg.data.current;
-			}
-			if(typeof msg.data.hidden != 'undefined'){
-				hidden = msg.data.hidden;
-			}
-			if(typeof msg.data.location != 'undefined'){
-				location = msg.data.location;
-			}
-		}
 
-		// Send changed state to all connections
-		for(var i = 0; i < pool.length; i++){
-			pool[i].postMessage({
-				'current' : current,
-				'hidden'  : hidden,
-				'location': location
-			});
-		}
+			// goTo-Event
+			if(typeof msg.data.goTo != 'undefined'){
+				for(var i = 0; i < pool.length; i++){
+					pool[i].postMessage({
+						'goTo': msg.data.goTo
+					});
+				}
+			}
 
+			// Update state
+			else {
+				if(typeof msg.data.current != 'undefined'){
+					current = msg.data.current;
+				}
+				if(typeof msg.data.hidden != 'undefined'){
+					hidden = msg.data.hidden;
+				}
+				if(typeof msg.data.location != 'undefined'){
+					location = msg.data.location;
+				}
+				for(var i = 0; i < pool.length; i++){
+					pool[i].postMessage({
+						'current' : current,
+						'hidden'  : hidden,
+						'location': location
+					});
+				}
+			}
+
+		}
 	};
 
 };

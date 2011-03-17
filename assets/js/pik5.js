@@ -1,11 +1,9 @@
 // Public vars and functions
 jQuery(document).ready(function($){
 
-
 var frame = $('#frame'),
     framecontainer = $('#framecontainer'),
     slidesize;
-
 
 // Setup frame and frameconteiner css, add end slide
 framecontainer.append('<div id="end" class="pik5-slide"><p>End of presentation.</p></div>');
@@ -13,11 +11,9 @@ pik5.slides = $('.pik5-slide');
 frame.css('overflow', 'hidden');
 framecontainer.css('width', 100 * pik5.slides.length + '%');
 
-
 // The overlay element used to hide the presentation
 var overlayclass = (pik5.inPresenter) ? 'overlay overlay-presenter' : 'overlay';
 var overlay = $('<div class="' + overlayclass + '"></div>').hide().appendTo(frame);
-
 
 // Function to setup positions, font and slide size
 var setFontFrameSizePosition = function(){
@@ -40,11 +36,9 @@ var setFontFrameSizePosition = function(){
 	});
 }
 
-
 // Resize and reposition on load and on resize and load
 $(window).bind('resize', setFontFrameSizePosition);
 $(window).bind('load', setFontFrameSizePosition);
-
 
 // Move to slide "index"
 var slideTo = function(index){
@@ -55,12 +49,10 @@ var slideTo = function(index){
 	framecontainer.css('left', index * slidesize * -1);
 }
 
-
 // Execute slide
 $(window).bind('slideTo', function(evt, index){
 	slideTo(index);
 });
-
 
 // Execute show/hide change
 $(window).bind({
@@ -72,5 +64,9 @@ $(window).bind({
 	}
 });
 
+// Hide presentation on page change
+$(window).bind('goTo', function(){
+	overlay.show();
+});
 
 });

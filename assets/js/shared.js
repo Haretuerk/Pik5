@@ -69,12 +69,18 @@ var PIK5 = function(){
 			this.show(propagate);
 		}
 	}
+	this.goTo = function(url, propagate){
+		location.href = url;
+		win.trigger('goTo', url);
+		if(propagate){
+			this.postMessage({ 'goTo': url });
+		}
+	}
 
 	// Recieve events from the worker
 	if(this.worker !== null){
 		this.worker.port.addEventListener('message', function(evt){
 			if(evt.data){
-			console.log(evt.data);
 				// Slide number
 				if(typeof evt.data.current != 'undefined'){
 					if(evt.data.current !== self.current){
@@ -92,6 +98,10 @@ var PIK5 = function(){
 					if(evt.data.location !== null && evt.data.location != self.location){
 						location.href = evt.data.location;
 					}
+				}
+				// goTo event
+				if(typeof evt.data.goTo != 'undefined'){
+					self.goTo(evt.data.goTo, false);
 				}
 			}
 		});
