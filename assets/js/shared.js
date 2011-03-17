@@ -1,33 +1,56 @@
-/*
-	shared.js
-	Shared functionality for presentation and presenter
-*/
+// Manages the presentation's state
+var PIK5 = function(){
 
+	var win = $(window);
 
-// PIK5 global object
-var _PIK5 = {
-	slides:   null,
-	current:  0,
-	hidden:   0,
-	location: null
-};
+	this.slides =   null;
+	this.current =  0;
+	this.hidden =   0;
+	this.location = null;
 
+	if(typeof SharedWorker == 'function'){
+		var worker = new SharedWorker('assets/js/worker.js', 'PIK5');
+		this.worker = worker.port;
+	}
+	else {
+		this.worker = null;
+	}
 
-// Create the worker for sharing information between presentation and presenter
-if(typeof SharedWorker == 'function'){
-	_PIK5.worker = new SharedWorker('assets/js/worker.js', '_PIK5');
-	_PIK5.worker.onerror = function(err){
-		if(typeof console != 'undefined'){
-			console.log(err);
+	this.slideNext = function(){
+		var newIndex = this.current + 1;
+		if(this.slides[newIndex]){
+			this.slideTo(newIndex);
 		}
-	};
-	_PIK5.port = _PIK5.worker.port;
-	_PIK5.hasWorker = true;
+	}
+	this.slideBack = function(){
+		var newIndex = this.current - 1;
+		if(this.slides[newIndex]){
+			this.slideTo(newIndex);
+		}
+	}
+	this.slideTo = function(index){
+		this.current = index;
+		win.trigger('slideTo', index);
+	}
+	this.hide = function(){
+		this.hidden = 1;
+		win.trigger('hide');
+	}
+	this.show = function(){
+		this.hidden = 0;
+		win.trigger('show');
+	}
+	this.toggleHidden = function(){
+		if(this.hidden == 0){
+			this.hide();
+		}
+		else {
+			this.show();
+		}
+	}
+
 }
-else {
-	_PIK5.hasWorker = false;
-	console.log("Your Browser doesn't support Shared Workers. Presenter mode not available :(");
-}
+var pik5 = new PIK5();
 
 
 // Catch keypress events
@@ -35,13 +58,13 @@ jQuery(document).ready(function($){
 	$(document).keydown(function(evt){
 		var code = evt.keyCode;
 		if(code == 39 || code == 34){
-			$(this).trigger('slidenext');
+			pik5.slideNext();
 		}
 		else if(code == 37 || code == 33){
-			$(this).trigger('slideback');
+			pik5.slideBack();
 		}
 		else if(code == 116 || code == 190 || code == 27){
-			$(this).trigger('hide');
+			pik5.toggleHidden();
 			evt.preventDefault();
 		}
 	});
