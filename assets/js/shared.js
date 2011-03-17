@@ -6,7 +6,7 @@ var PIK5 = function(){
 	this.slides      = null;
 	this.current     = 0;
 	this.hidden      = 0;
-	this.location    = null;
+	this.location    = location.href;
 	this.inPresenter = /presenter\.html(#([0-9]+))*$/.test(parent.location + '');
 
 	// Setup worker
@@ -25,42 +25,48 @@ var PIK5 = function(){
 	}
 
 	// Main presentation control functions
-	this.slideNext = function(){
+	this.slideNext = function(propagate){
 		var newIndex = this.current + 1;
 		if(this.slides[newIndex]){
-			this.slideTo(newIndex);
+			this.slideTo(newIndex, propagate);
 		}
 	}
-	this.slideBack = function(){
+	this.slideBack = function(propagate){
 		var newIndex = this.current - 1;
 		if(this.slides[newIndex]){
-			this.slideTo(newIndex);
+			this.slideTo(newIndex, propagate);
 		}
 	}
-	this.slideTo = function(index){
+	this.slideTo = function(index, propagate){
 		this.current = index;
 		win.trigger('slideTo', index);
-		this.postMessage({ 'current': this.current });
+		if(propagate){
+			this.postMessage({ 'current': this.current });
+		}
 	}
-	this.hide = function(){
+	this.hide = function(propagate){
 		this.hidden = 1;
 		win.trigger('hide');
-		this.postMessage({ 'hidden': this.hidden });
+		if(propagate){
+			this.postMessage({ 'hidden': this.hidden });
+		}
 	}
-	this.show = function(){
+	this.show = function(propagate){
 		this.hidden = 0;
 		win.trigger('show');
-		this.postMessage({ 'hidden': this.hidden });
+		if(propagate){
+			this.postMessage({ 'hidden': this.hidden });
+		}
 	}
 	this.setHidden = function(value){
 		(value == 1) ? this.hide() : this.show();
 	}
-	this.toggleHidden = function(){
+	this.toggleHidden = function(propagate){
 		if(this.hidden == 0){
-			this.hide();
+			this.hide(propagate);
 		}
 		else {
-			this.show();
+			this.show(propagate);
 		}
 	}
 
@@ -68,16 +74,17 @@ var PIK5 = function(){
 	if(this.worker !== null){
 		this.worker.port.addEventListener('message', function(evt){
 			if(evt.data){
+			console.log(evt.data);
 				// Slide number
 				if(typeof evt.data.current != 'undefined'){
 					if(evt.data.current !== self.current){
-						self.slideTo(evt.data.current);
+						self.slideTo(evt.data.current, false);
 					}
 				}
 				// Hidden state
 				if(typeof evt.data.hidden != 'undefined'){
 					if(evt.data.hidden !== self.hidden){
-						self.setHidden(evt.data.hidden);
+						self.setHidden(evt.data.hidden, false);
 					}
 				}
 				// Location
@@ -91,6 +98,9 @@ var PIK5 = function(){
 		this.worker.port.start();
 	}
 
+	// Initial sync
+	this.postMessage({ 'location': this.location });
+
 }
 var pik5 = new PIK5();
 
@@ -100,13 +110,13 @@ jQuery(document).ready(function($){
 	$(document).keydown(function(evt){
 		var code = evt.keyCode;
 		if(code == 39 || code == 34){
-			pik5.slideNext();
+			pik5.slideNext(true);
 		}
 		else if(code == 37 || code == 33){
-			pik5.slideBack();
+			pik5.slideBack(true);
 		}
 		else if(code == 116 || code == 190 || code == 27){
-			pik5.toggleHidden();
+			pik5.toggleHidden(true);
 			evt.preventDefault();
 		}
 	});
