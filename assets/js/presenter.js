@@ -1,6 +1,10 @@
 jQuery(document).ready(function($){
 
-var currentWindow, nextWindow;
+var current,
+    currentWindow,
+    nextWindow,
+    currentFrame = $('#current'),
+    nextFrame    = $('#next');
 
 // Timer
 (function(){
@@ -28,31 +32,48 @@ var currentWindow, nextWindow;
 })();
 
 // Setup current slide view
-$('#current').bind('load', function(){
+currentFrame.bind('load', function(){
 	currentWindow = this.contentWindow;
+	currentWindow.slideTo(null, current);
 });
 
 // Setup next slide view
-$('#next').bind('load', function(){
+nextFrame.bind('load', function(){
 	nextWindow = this.contentWindow;
-});
-
+	nextWindow.slideTo(null, current + 1);
 });
 
 // Execute show/hide change
 $(window).bind({
 	'slideTo': function(evt, index){
-		console.log(index);
+		current = index;
+		try {
+			currentWindow.slideTo(null, current);
+			nextWindow.slideTo(null, current + 1);
+		} catch(e){}
 	},
 	'show': function(){
-		console.log('Show-Event');
+		try {
+			currentWindow.show();
+			nextWindow.show();
+		} catch(e){}
 	},
 	'hide': function(){
-		console.log('Hide-Event');
+		try {
+			currentWindow.hide();
+			nextWindow.hide();
+		} catch(e){}
 	},
 	'location': function(evt, url){
-		console.log(url);
-	},
+		if(currentFrame.attr('src') != url){
+			currentFrame.attr('src', url);
+		}
+		if(nextFrame.attr('src') != url){
+			nextFrame.attr('src', url);
+		}
+	}
+});
+
 });
 
 

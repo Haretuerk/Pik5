@@ -1,4 +1,6 @@
 // Public vars and functions
+var slideTo, show, hide, changePage;
+
 jQuery(document).ready(function($){
 
 var frame = $('#frame'),
@@ -14,6 +16,12 @@ framecontainer.css('width', 100 * pik5.slides.length + '%');
 // The overlay element used to hide the presentation
 var overlayclass = (pik5.inPresenter) ? 'overlay overlay-presenter' : 'overlay';
 var overlay = $('<div class="' + overlayclass + '"></div>').hide().appendTo(frame);
+show = function(){
+	overlay.hide();
+}
+hide = function(){
+	overlay.show();
+}
 
 // Function to setup positions, font and slide size
 var setFontFrameSizePosition = function(){
@@ -41,7 +49,7 @@ $(window).bind('resize', setFontFrameSizePosition);
 $(window).bind('load', setFontFrameSizePosition);
 
 // Move to slide "index"
-var slideTo = function(index){
+slideTo = function(evt, index){
 	index = parseInt(index);
 	$(pik5.slides[pik5.current]).trigger('deactivate');
 	$(pik5.slides[index]).trigger('activate');
@@ -49,29 +57,22 @@ var slideTo = function(index){
 	framecontainer.css('left', index * slidesize * -1);
 }
 
-// Execute slide
-$(window).bind('slideTo', function(evt, index){
-	slideTo(index);
-});
-
-// Execute show/hide change
-$(window).bind({
-	'show': function(){
-		overlay.hide();
-	},
-	'hide': function(){
-		overlay.show();
-	}
-});
-
-// Handle page change
-var changePage = function(evt, url){
-	overlay.show();
+// Do a page change
+changePage = function(evt, url){
+	hide();
 	location.href = url;
 };
-$(window).bind({
-	'goTo':     changePage,
-	'location': changePage
-});
+
+// Execute events only if not in presenter
+if(!pik5.inPresenter){
+	$(window).bind({
+		'slideTo' : slideTo,
+		'show'    : show,
+		'hide'    : hide,
+		'goTo'    : changePage,
+		'location': changePage
+	});
+}
+
 
 });

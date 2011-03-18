@@ -15,7 +15,7 @@ var PIK5 = function(){
 	}
 
 	// Setup worker
-	if(typeof SharedWorker == 'function'){
+	if(typeof SharedWorker == 'function' && !this.inPresenter){
 		this.worker = new SharedWorker('assets/js/worker.js', 'Pik5');
 	}
 	else {
@@ -32,13 +32,13 @@ var PIK5 = function(){
 	// Main presentation control functions
 	this.slideNext = function(propagate){
 		var newIndex = this.current + 1;
-		if(this.slides[newIndex]){
+		if(this.slides && this.slides[newIndex]){
 			this.slideTo(newIndex, propagate);
 		}
 	}
 	this.slideBack = function(propagate){
 		var newIndex = this.current - 1;
-		if(this.slides[newIndex]){
+		if(this.slides && this.slides[newIndex]){
 			this.slideTo(newIndex, propagate);
 		}
 	}

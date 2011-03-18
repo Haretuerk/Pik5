@@ -14,10 +14,21 @@ self.onconnect = function(evt){
 	port.onmessage = function(msg){
 		if(msg.data){
 
+			// Request state
+			if(typeof msg.data.request != 'undefined'){
+				port.postMessage({
+					'current' : current,
+					'hidden'  : hidden,
+					'location': location
+				});
+			}
+
 			// goTo-Event
-			if(typeof msg.data.goTo != 'undefined'){
+			else if(typeof msg.data.goTo != 'undefined'){
+				current = 0;
 				for(var i = 0; i < pool.length; i++){
 					pool[i].postMessage({
+						'current' : current,
 						'goTo': msg.data.goTo
 					});
 				}
@@ -31,7 +42,7 @@ self.onconnect = function(evt){
 				if(typeof msg.data.hidden != 'undefined'){
 					hidden = msg.data.hidden;
 				}
-				if(typeof msg.data.location != 'undefined'){
+				if(typeof msg.data.location != 'undefined' && msg.data.location !== null){
 					location = msg.data.location;
 				}
 				for(var i = 0; i < pool.length; i++){
