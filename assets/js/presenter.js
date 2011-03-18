@@ -40,6 +40,7 @@ var setupSelect = function(){
 		if(slide.attr('id') !== 'end'){
 			var headlines = slide.find('h1, h2, h3, h4, h5, h6');
 			var optiontitle = (headlines[0]) ? index + 1 + ': ' + $(headlines[0]).text() : index;
+			optiontitle = (optiontitle + '').replace(/</gi, "&lt;").replace(/>/gi, "&gt;");
 			slideselecthtml += '<option value="' + index + '">' + optiontitle + '</option>';
 		}
 	});
