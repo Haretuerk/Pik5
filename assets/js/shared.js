@@ -7,10 +7,11 @@ var PIK5 = function(){
 	this.current     = 0;
 	this.hidden      = 0;
 	this.location    = null;
-	this.inPresenter = /presenter\.html(#([0-9]+))*$/.test(parent.location + '');
+	this.isPresenter = (location.href.substr(-14) == 'presenter.html');
+	this.inPresenter = (!this.isPresenter && /presenter\.html$/.test(parent.location + ''));
 
 	// Setup location
-	if(!this.inPresenter){
+	if(!this.inPresenter && !this.isPresenter){
 		this.location = location.href;
 	}
 
