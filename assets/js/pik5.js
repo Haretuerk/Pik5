@@ -51,9 +51,6 @@ $(window).bind('load', setFontFrameSizePosition);
 // Move to slide "index"
 slideTo = function(evt, index){
 	index = parseInt(index);
-	$(pik5.slides[pik5.current]).trigger('deactivate');
-	$(pik5.slides[index]).trigger('activate');
-	$(document).trigger('change', index);
 	framecontainer.css('left', index * slidesize * -1);
 }
 

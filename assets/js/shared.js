@@ -44,6 +44,15 @@ var PIK5 = function(){
 		}
 	}
 	this.slideTo = function(index, propagate){
+		if(!this.inPresenter){
+			if(this.slides[this.current]){
+				$(this.slides[this.current]).trigger('deactivate');
+			}
+			if(this.slides[index]){
+				$(this.slides[index]).trigger('activate');
+			}
+			win.trigger('change', index);
+		}
 		this.current = index;
 		win.trigger('slideTo', index);
 		if(propagate){
