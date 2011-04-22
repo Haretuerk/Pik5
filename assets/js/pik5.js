@@ -23,13 +23,25 @@ hide = function(){
 	overlay.show();
 }
 
-// Function to setup positions, font and slide size
+// Function to setup aspect ratio, positions, font and slide size
 var setFontFrameSizePosition = function(){
-	var frameratio = (frame.height() + frame.width()) / 1000;
-	$('body').css('font-size', frameratio + 'em');
+	// Force 4:3 aspect ratio
+	var bw = $('body').width(), bh = $('body').height();
+	var ratio = 4 / 3;
+	if(bw > bh * ratio){
+		frame.css('width', bh * ratio + 'px');
+		frame.css('height', bh + 'px');
+	}
+	else if(bh > bw / ratio){
+		frame.css('width', bw + 'px');
+		frame.css('height', bw / ratio + 'px');
+	}
+	// Set font size and slide width
+	var fontsize = (frame.height() + frame.width()) / 1000;
+	$('body').css('font-size', fontsize + 'em');
 	slidesize = framecontainer.width() / pik5.slides.length;
-console.log(framecontainer.width());
 	pik5.slides.css('width', slidesize + 'px');
+	// Center elements
 	var supercenter = $('.pik5-center');
 	var slideH = $('.pik5-slide').height();
 	var slideW = $('.pik5-slide').width();
@@ -43,6 +55,8 @@ console.log(framecontainer.width());
 			left:  (slideW - elW) / 2 + 'px'
 		});
 	});
+	// Re-position current slide
+	slideTo(null, pik5.current);
 }
 
 // Resize and reposition on load and on resize and load

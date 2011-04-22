@@ -44,7 +44,7 @@ var PIK5 = function(){
 		}
 	}
 	this.slideTo = function(index, propagate){
-		if(!this.inPresenter){
+		if(!this.inPresenter && this.slides){
 			if(this.slides[this.current]){
 				$(this.slides[this.current]).trigger('deactivate');
 			}
