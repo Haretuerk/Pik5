@@ -28,6 +28,7 @@ var setFontFrameSizePosition = function(){
 	var frameratio = (frame.height() + frame.width()) / 1000;
 	$('body').css('font-size', frameratio + 'em');
 	slidesize = framecontainer.width() / pik5.slides.length;
+console.log(framecontainer.width());
 	pik5.slides.css('width', slidesize + 'px');
 	var supercenter = $('.pik5-center');
 	var slideH = $('.pik5-slide').height();
