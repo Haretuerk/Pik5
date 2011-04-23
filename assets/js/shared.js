@@ -17,7 +17,12 @@ var PIK5 = function(){
 
 	// Setup worker
 	if(typeof SharedWorker == 'function' && !this.inPresenter){
-		this.worker = new SharedWorker('assets/js/worker.js', 'Pik5');
+		try {
+			this.worker = new SharedWorker('assets/js/worker.js', 'Pik5');
+		}
+		catch(e){
+			this.worker = null;
+		}
 	}
 	else {
 		this.worker = null;
