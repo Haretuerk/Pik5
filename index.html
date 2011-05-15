@@ -4,17 +4,18 @@
 	<meta charset="utf-8">
 	<title>Pik5 - HTML5 presentation framework</title>
 	<meta http-equiv="expires" content="0"> <!-- DO NOT DELETE THIS! -->
-	<link rel="stylesheet" href="assets/prettify/prettify.css"> <!-- You can remove this if your presentation is not about coding -->
+	<link rel="stylesheet" href="assets/prettify/prettify.css"> <!-- You can remove this if your presentation is not about programming -->
 	<link rel="stylesheet" media="screen, projection" href="assets/css/pik5.css"> <!-- DO NOT DELETE THIS! -->
 	<link rel="stylesheet" media="screen, projection" href="themes/pik5/style.css"> <!-- Use this to style your presentation -->
 	<link rel="stylesheet" media="print" href="themes/pik5/print.css"> <!-- Use this to make your presentation print well -->
-	<script src="assets/prettify/prettify.js"></script> <!-- Remove this if your presentation is not about code -->
+	<script src="assets/prettify/prettify.js"></script> <!-- You can remove this if your presentation is not about programming -->
 	<script src="assets/js/jquery.js"></script> <!-- DO NOT DELETE THIS! -->
 	<script src="assets/js/shared.js"></script> <!-- DO NOT DELETE THIS! -->
 	<script src="assets/js/pik5.js"></script> <!-- DO NOT DELETE THIS! -->
 	<script src="custom.js"></script> <!-- Use this for your own slide programming -->
+	<base target="_blank">
 </head>
-<body onload="prettyPrint()"> <!-- Remove the onload property if your presentation is not about coding -->
+<body onload="prettyPrint()"> <!-- You can remove the onload property if your presentation is not about programming -->
 
 
 <div id="header">
@@ -121,7 +122,8 @@
 		PIK5 comes with <a href="http://code.google.com/p/google-code-prettify/">google-code-prettify</a>, a JavaScript
 		library that lets you add syntax highlighting to code snippets in a HTML page. Just add
 		<code class="prettyprint">class="prettyprint"</code> to your <code class="prettyprint">&lt;pre&gt;</code> and
-		<code class="prettyprint">&lt;code&gt;</code> elements.
+		<code class="prettyprint">&lt;code&gt;</code> elements. See <a href="http://google-code-prettify.googlecode.com/svn/trunk/README.html">the
+		readme</a> for more information.
 	</p>
 </div>
 
@@ -153,9 +155,8 @@
 		In case you want to navigate from one set of slides to another, use the <code class="prettyprint">pik5.goTo()</code> function in an
 		<code>&lt;a&gt;</code> element's <code>onclick</code> handler:
 	</p>
-	<pre class="prettyprint">&lt;a href="slides2.html" onclick="pik5.goTo(this.href, true)"&gt;
-    Load new slides
-&lt;/a&gt;</pre>
+	<pre class="prettyprint">&lt;a target="_self" href="slides2.html"
+    onclick="pik5.goTo(this.href, true)"&gt;Load new slides&lt;/a&gt;</pre>
 </div>
 
 
