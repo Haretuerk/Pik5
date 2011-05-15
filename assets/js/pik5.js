@@ -65,8 +65,10 @@ $(window).bind('load', setFontFrameSizePosition);
 
 // Move to slide "index"
 slideTo = function(evt, index){
-	index = parseInt(index);
-	framecontainer.css('left', index * slidesize * -1);
+	if(typeof evt != 'undefined'){
+		index = (typeof index != 'undefined') ? parseInt(index) : 0;
+		framecontainer.css('left', index * slidesize * -1);
+	}
 }
 
 // Do a page change
