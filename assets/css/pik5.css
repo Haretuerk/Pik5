@@ -15,6 +15,7 @@ body {
 /* Layout */
 #frame {
 	position:relative;
+	margin:0 auto;
 }
 #framecontainer {
 	position:absolute;
@@ -27,6 +28,7 @@ body {
 	float:left;
 	margin:0;
 	padding:0;
+	overflow:hidden;
 }
 
 

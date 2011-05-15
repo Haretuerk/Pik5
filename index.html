@@ -9,7 +9,7 @@
 	<link rel="stylesheet" media="screen, projection" href="themes/pik5/style.css"> <!-- Use this to style your presentation -->
 	<link rel="stylesheet" media="print" href="themes/pik5/print.css"> <!-- Use this to make your presentation print well -->
 	<script src="assets/prettify/prettify.js"></script> <!-- Remove this if your presentation is not about code -->
-	<script src="assets/js/jquery-1.4.3.min.js"></script> <!-- DO NOT DELETE THIS! -->
+	<script src="assets/js/jquery.js"></script> <!-- DO NOT DELETE THIS! -->
 	<script src="assets/js/shared.js"></script> <!-- DO NOT DELETE THIS! -->
 	<script src="assets/js/pik5.js"></script> <!-- DO NOT DELETE THIS! -->
 	<script src="custom.js"></script> <!-- Use this for your own slide programming -->
@@ -65,7 +65,7 @@
 	<h2>Programming presentations</h2>
 	<ul>
 		<li>An <code>activate</code> event is fired on the slides when they are shown and a <code>deactivate</code> event when hidden</li>
-		<li>A <code>slidechange</code> event is fired on the document object when slides change</li>
+		<li>A <code>change</code> event is fired on the window object when slides change</li>
 	</ul>
 </div>
 
@@ -144,6 +144,18 @@
 		<li>The F5 key hides the presentation</li>
 		<li>Supported/tested hardware: Logitech Presenter R400</li>
 	</ul>
+</div>
+
+
+<div class="pik5-slide">
+	<h2>Changing presentations</h2>
+	<p>
+		In case you want to navigate from one set of slides to another, use the <code class="prettyprint">pik5.goTo()</code> function in an
+		<code>&lt;a&gt;</code> element's <code>onclick</code> handler:
+	</p>
+	<pre class="prettyprint">&lt;a href="slides2.html" onclick="pik5.goTo(this.href, true)"&gt;
+    Load new slides
+&lt;/a&gt;</pre>
 </div>
 
 
