@@ -28,3 +28,7 @@ body {
 #end {
 	display:none;
 }
+.pik5-center {
+	display:block !important;
+	position:static !important;
+}
