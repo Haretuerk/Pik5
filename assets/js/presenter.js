@@ -118,7 +118,7 @@ nextFrame.bind('load', function(){
 // Execute show/hide change
 $(window).bind({
 	'slideTo': function(evt, index){
-		current = index;
+		current = (typeof index == 'undefined') ? 0 : index;
 		$('#slideselect').val(current);
 		$('#currentindex').html(current + 1);
 		updateProgress();
