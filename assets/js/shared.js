@@ -11,17 +11,22 @@ var PIK5 = function(){
 	this.inPresenter = (!this.isPresenter && /presenter\.html$/.test(parent.location + ''));
 
 	// Setup location
-	if(!this.inPresenter && !this.isPresenter){
+	if(!this.isPresenter){
 		this.location = location.href;
 	}
 
 	// Setup worker
 	if(typeof SharedWorker == 'function' && !this.inPresenter){
 		try {
-			this.worker = new SharedWorker('assets/js/worker.js', 'Pik5');
+			var path = 'assets/js/worker.js';
+			path = (typeof p5_base_dir != 'undefined') ? p5_base_dir + path : path;
+			this.worker = new SharedWorker(path, 'Pik5');
 		}
 		catch(e){
 			this.worker = null;
+		}
+		if(!this.worker){
+			console.log('Failed to create Web Worker - multi window presentations and presenter view disabled');
 		}
 	}
 	else {
