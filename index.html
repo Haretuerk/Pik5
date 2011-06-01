@@ -8,7 +8,7 @@
 	<link rel="stylesheet" media="screen, projection" href="assets/css/pik5.css"> <!-- DO NOT DELETE THIS! -->
 	<link rel="stylesheet" media="screen, projection" href="themes/pik5/style.css"> <!-- Use this to style your presentation -->
 	<link rel="stylesheet" media="print" href="themes/pik5/print.css"> <!-- Use this to make your presentation print well -->
-	<script> var p5_base_dir = ''; </script> <!-- Change this if this presentation file is NOT in the same folder as all other P5 files and folders -->
+	<script> var pik5_base_dir = ''; </script> <!-- Change this if this presentation file is NOT in the same folder as all other P5 files and folders -->
 	<script src="assets/prettify/prettify.js"></script> <!-- You can remove this if your presentation is not about programming -->
 	<script src="assets/js/jquery.js"></script> <!-- DO NOT DELETE THIS! -->
 	<script src="assets/js/shared.js"></script> <!-- DO NOT DELETE THIS! -->
@@ -47,6 +47,16 @@
 		<li>Programmable slides</li>
 		<li>Built-in code highlighting (<a href="http://code.google.com/p/google-code-prettify/">google-code-prettify</a>)</li>
 		<li>Supported/tested hardware: Logitech Presenter R400</li>
+	</ul>
+</div>
+
+
+<div class="pik5-slide">
+	<h2>Why?</h2>
+	<ul>
+		<li>Infinitly hackable</li>
+		<li>Great performance in modern browsers</li>
+		<li>Easy embedding of web pages, media, youtube videos&nbsp;&hellip;</li>
 	</ul>
 </div>
 
@@ -158,6 +168,16 @@
 	</p>
 	<pre class="prettyprint">&lt;a target="_self" href="slides2.html"
     onclick="pik5.goTo(this.href, true)"&gt;Load new slides&lt;/a&gt;</pre>
+</div>
+
+
+<div class="pik5-slide">
+	<h2>Organizing presentations</h2>
+	<p>
+		If you have more than one presentation to run from Pik5, it's recommended to place them an their resources in their own folders. Change
+		the paths to the scripts and css files and the <code>pik5_base_dir</code> variable in the presentation's
+		<code class="prettyprint">&lt;head&gt;</code> accordingly.
+	</p>
 </div>
 
 

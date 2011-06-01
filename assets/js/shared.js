@@ -19,7 +19,7 @@ var PIK5 = function(){
 	if(typeof SharedWorker == 'function' && !this.inPresenter){
 		try {
 			var path = 'assets/js/worker.js';
-			path = (typeof p5_base_dir != 'undefined') ? p5_base_dir + path : path;
+			path = (typeof pik5_base_dir != 'undefined') ? pik5_base_dir + path : path;
 			this.worker = new SharedWorker(path, 'Pik5');
 		}
 		catch(e){
