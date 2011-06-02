@@ -24,9 +24,8 @@ var PIK5 = function(){
 		}
 		catch(e){
 			this.worker = null;
-		}
-		if(!this.worker){
 			console.log('Failed to create Web Worker - multi window presentations and presenter view disabled');
+			console.log(e);
 		}
 	}
 	else {
