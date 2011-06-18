@@ -16,11 +16,21 @@ h2 {
 	font-weight:normal;
 	text-align:center;
 	font-size:1.9em;
-	margin:1.5em 0.6em 1em 0.6em;
+	margin:1.25em 0.6em 1em 0.6em;
 }
-p, ul, ol, pre {
+h2 code {
+	font-weight:bold;
+}
+h3 {
+	text-align:center;
+}
+p, ul, ol, pre, table {
 	font-size:1.1em;
 	margin:1em 1.55em;
+}
+button, select, textarea {
+	font-family:"lemonde-sans-1","lemonde-sans-2", Verdana, Arial, sans-serif;
+	font-size:1.1em;
 }
 ul ul, ol ol, ul ol, ol ul {
 	font-size:1em;
@@ -44,6 +54,10 @@ a:active {
 	background:#912121;
 	border-bottom:2px solid transparent;
 }
+a.imagelink {
+	border:none !important;
+	background:none !important;
+}
 iframe {
 	border:none;
 }
@@ -56,6 +70,38 @@ blockquote, q {
 }
 .center {
 	text-align:center;
+	margin-left:auto;
+	margin-right:auto;
+}
+table {
+	border-collapse:collapse;
+	text-align:center;
+}
+table td, table th {
+	vertical-align:top;
+	border:0.1em solid #E0DBD7;
+	padding:0.2em;
+}
+th {
+	color:#FFF;
+	background:#912121;
+}
+.yes {
+	color:#0C0;
+}
+.no {
+	color:#E00;
+}
+p.cite {
+	font-size:0.8em;
+	margin-bottom:3em;
+	padding-left:2em;
+}
+.pik5-center {
+	z-index:1337;
+}
+table.noborder td, table.noborder th {
+	border:none;
 }
 
 
@@ -109,6 +155,16 @@ mark {
 	left:0;
 	right:0;
 	background:rgba(255, 255, 255, 0.8);
+}
+.black {
+	background:#000;
+	position:relative;
+	z-index:1337;
+}
+.white {
+	background:#FFF;
+	position:relative;
+	z-index:1337;
 }
 
 
