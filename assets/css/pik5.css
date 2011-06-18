@@ -32,27 +32,6 @@ body {
 }
 
 
-/* Header and footer */
-#header {
-	position:absolute;
-	top:0;
-	left:0;
-	right:0;
-	z-index:1;
-}
-
-
-/* End of presentation */
-#end {
-	background:#000;
-	position:relative;
-	z-index:1337;
-}
-#end p {
-	color:#FFF;
-	margin-top:5em;
-}
-
 
 /* Overlay */
 .overlay {

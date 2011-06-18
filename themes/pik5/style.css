@@ -44,11 +44,20 @@ a:active {
 iframe {
 	border:none;
 }
+a.imagelink {
+	border:none !important;
+	background:none !important;
+}
 
 
 /* Header */
 #header {
 	color:#FFF;
+	position:absolute;
+	top:0;
+	left:0;
+	right:0;
+	z-index:1;
 }
 #header h1, #header a {
 	float:left;
@@ -74,6 +83,15 @@ iframe {
 	background:#3EA6C8;
 	color:#FFF;
 	font-size:2em;
+}
+#end {
+	background:#000;
+	position:relative;
+	z-index:1337;
+}
+#end p {
+	color:#FFF;
+	margin-top:5em;
 }
 
 
