@@ -61,7 +61,7 @@ label {
 #presenter-next {
 	text-align:right;
 	position:absolute;
-	top:80px;
+	top:48px;
 	right:0;
 	z-index:1;
 }
@@ -91,6 +91,8 @@ h1 {
 	padding:0;
 	float:right;
 	text-align:right;
+	position:relative;
+	z-index:1337;
 }
 #timecontainer input {
 	width:40%;

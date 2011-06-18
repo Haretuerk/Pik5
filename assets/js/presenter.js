@@ -4,13 +4,16 @@ var current       = 0,
     currentWindow,
     nextWindow,
     currentFrame  = $('#current'),
-    nextFrame     = $('#next');
+    nextFrame     = $('#next')
+    timerRunning  = true;
 
 // Timer
+var h = 0,
+    m = 0,
+    s = 0;
 (function(){
 	var time = $('#time'),
-	    now = $('#now'),
-	    h = 0 , m = 0 , s = 0;
+	    now = $('#now');
 	setInterval(function(){
 		s++;
 		var t = new Date();
@@ -26,10 +29,32 @@ var current       = 0,
 		if(m.length == 1) { m = '0' + m }
 		s = s + '';
 		if(s.length == 1) { s = '0' + s }
-		time.html(h + ':' + m + ':' + s);
 		now.html(t.toLocaleTimeString());
+		if(timerRunning){
+			time.html(h + ':' + m + ':' + s);
+		}
 	}, 1000);
 })();
+
+
+// Timer controls
+$('#stoptimer').click(function(){
+	if(timerRunning){
+		timerRunning = false;
+		this.value = "Resume";
+	}
+	else {
+		timerRunning = true;
+		this.value = "Stop";
+	}
+});
+$('#resettimer').click(function(){
+	if(confirm('Reset the timer? This cannot be undone!')){
+		h = m = s = 0;
+		$('#time').html('00:00:00');
+	}
+});
+
 
 // Create select options
 var setupSelect = function(){
