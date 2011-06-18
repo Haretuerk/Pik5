@@ -15,7 +15,7 @@ framecontainer.css('width', 100 * pik5.slides.length + '%');
 
 // The overlay element used to hide the presentation
 var overlayclass = (pik5.inPresenter) ? 'overlay overlay-presenter' : 'overlay';
-var overlay = $('<div class="' + overlayclass + '"></div>').hide().appendTo(frame);
+var overlay = $('<div class="' + overlayclass + '"></div>').hide().appendTo(document.body);
 show = function(){
 	overlay.hide();
 }
