@@ -3,7 +3,6 @@
 	This controls how your presentation looks on dead trees. Edit away!
 */
 
-
 /* Basics */
 body {
 	font-family: Helvetica, Arial, sans-serif;
@@ -15,7 +14,9 @@ body {
 	border:none !important;
 	padding:0 !important;
 }
-
+.pik5-slide {
+	margin-bottom:2em !important;
+}
 
 /* Overrule the js style changes */
 body {
@@ -31,4 +32,15 @@ body {
 .pik5-center {
 	display:block !important;
 	position:static !important;
+}
+
+/* Notes */
+.pik5-notes::before {
+	content:"Notes";
+	font-weight:bold;
+	background:#FFF;
+	margin:1em 0;
+}
+.pik5-notes {
+	font-size:0.8em;
 }

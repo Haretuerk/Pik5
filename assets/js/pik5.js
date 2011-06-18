@@ -88,5 +88,11 @@ if(!pik5.inPresenter){
 	});
 }
 
+// Add presenter style modifications
+if(pik5.inPresenter){
+	var presenter_style_path = 'assets/css/pik5-presenter.css';
+	presenter_style_path = (typeof pik5_base_dir != 'undefined') ? pik5_base_dir + presenter_style_path : presenter_style_path;
+	$('head').append('<link rel="stylesheet" href="' + presenter_style_path + '">');
+}
 
 });
