@@ -10,6 +10,7 @@ body {
 	background:#FFF;
 	color:#000;
 	line-height:1.4;
+	margin:0;
 }
 h2 {
 	clear:both;
@@ -60,24 +61,39 @@ label {
 #presenter-next {
 	text-align:right;
 	position:absolute;
-	top:48px;
+	top:80px;
 	right:0;
 	z-index:1;
 }
 
 
 /* Header */
+#header {
+	position:absolute;
+	top:0;
+	left:0;
+	right:0;
+	padding-top:12px;
+}
+#header .wrapper {
+	width:960px;
+	margin:0 auto;
+}
 h1 {
 	font-size:1.3em;
-	margin:1em;
+	margin:0 0.8em;
 	padding:0;
 	float:left;
 }
 #timecontainer {
 	font-size:1.3em;
-	margin:1em;
+	margin:0 0.9em;
 	padding:0;
 	float:right;
+	text-align:right;
+}
+#timecontainer input {
+	width:40%;
 }
 #timer {
 	font-weight:normal;
@@ -93,7 +109,6 @@ h1 {
 #presenterfooter {
 	position:relative;
 	text-align:center;
-	opacity:1 !important;
 }
 #progress {
 	width:928px;
