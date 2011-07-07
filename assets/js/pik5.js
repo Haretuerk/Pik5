@@ -71,6 +71,22 @@ slideTo = function(evt, index){
 	}
 }
 
+// Sync slide and body background color
+if(typeof $.Color != 'undefined'){ // for compatibility reasons
+	var default_color = $('body').css('background-color');
+	if(default_color){
+		$('.pik5-slide').bind('activate', function(){
+			var c = $.Color($(this).css('background-color'));
+			if(c.alpha()){
+				$('body').css('background-color', c);
+			}
+			else {
+				$('body').css('background-color', default_color);
+			}
+		});
+	}
+}
+
 // Do a page change
 changePage = function(evt, url){
 	hide();
