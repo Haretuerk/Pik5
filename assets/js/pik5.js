@@ -63,6 +63,13 @@ var setFontFrameSizePosition = function(){
 $(window).bind('resize', setFontFrameSizePosition);
 $(window).bind('load', setFontFrameSizePosition);
 
+// Fire slide change events on document load
+$(window).bind('load', function(){
+	$(this).trigger('change', pik5.current);
+	$(pik5.slides[pik5.current]).trigger('activate');
+});
+
+
 // Move to slide "index"
 slideTo = function(evt, index){
 	if(typeof evt != 'undefined'){
