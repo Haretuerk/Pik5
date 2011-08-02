@@ -7,6 +7,20 @@ var current       = 0,
     nextFrame     = $('#next')
     timerRunning  = true;
 
+
+// Extract the title from a slide
+var getTitle = function(slide){
+	if(!slide.find){
+		slide = $(slide);
+	}
+	var slides = Array.prototype.slice.call(pik5.slides);
+	var index = slides.indexOf(slide[0]);
+	var headlines = slide.find('h1, h2, h3, h4, h5, h6');
+	var title = (headlines[0]) ? index + 1 + ': ' + $(headlines[0]).text() : index;
+	title = (title + '').replace(/</gi, "&lt;").replace(/>/gi, "&gt;");
+	return title;
+};
+
 // Timer
 var h = 0,
     m = 0,
@@ -63,10 +77,7 @@ var setupSelect = function(){
 	pik5.slides.each(function(index, slide){
 		slide = $(slide);
 		if(slide.attr('id') !== 'end'){
-			var headlines = slide.find('h1, h2, h3, h4, h5, h6');
-			var optiontitle = (headlines[0]) ? index + 1 + ': ' + $(headlines[0]).text() : index;
-			optiontitle = (optiontitle + '').replace(/</gi, "&lt;").replace(/>/gi, "&gt;");
-			slideselecthtml += '<option value="' + index + '">' + optiontitle + '</option>';
+			slideselecthtml += '<option value="' + index + '">' + getTitle(slide) + '</option>';
 		}
 	});
 	slideselect.html(slideselecthtml);
@@ -92,8 +103,9 @@ var setupControls = function(){
 var setupProgress = function(current){
 	var progress = $('#progress').html('');
 	var slidewidth = Math.floor(928/pik5.slides.length) - 2;
-	pik5.slides.each(function(index){
-		var segment = $('<div style="width:' + slidewidth + 'px">' + (index + 1) + '</div>');
+	pik5.slides.each(function(index, slide){
+		var title = getTitle(slide);
+		var segment = $('<div title="' + title + '" style="width:' + slidewidth + 'px">' + (index + 1) + '</div>');
 		segment.click(function(){
 			pik5.slideTo(index, true);
 		});
