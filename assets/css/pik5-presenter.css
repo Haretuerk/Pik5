@@ -3,6 +3,7 @@
 	Slide modifications for the presenter view. Don't edit this file unless you think you know what you are doing.
 */
 
+
 /* Notes */
 .pik5-notes {
 	font-family:Helvetica, Arial, sans-serif;
@@ -24,4 +25,10 @@
 }
 .pik5-notes:hover {
 	opacity:0.2;
+}
+
+
+/* Overlay */
+.pik5-overlay-presenter {
+	background:rgba(0, 0, 0, 0.7) !important;
 }

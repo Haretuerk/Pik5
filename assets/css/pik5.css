@@ -2,6 +2,9 @@
 	pik5.css
 	Styles needed to make slides work at all. Don't edit this file unless you think you know what you are doing.
 */
+
+
+/* Basics */
 html, body, #frame, #framecontainer {
 	height:100%;
 }
@@ -40,7 +43,7 @@ body {
 
 
 /* Overlay */
-.overlay {
+.pik5-overlay {
 	position:absolute;
 	top:0;
 	right:0;
@@ -48,7 +51,4 @@ body {
 	left:0;
 	z-index:1337;
 	background:#000;
-}
-.overlay-presenter {
-	background:rgba(0, 0, 0, 0.7) !important;
 }

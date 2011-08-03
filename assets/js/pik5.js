@@ -2,19 +2,20 @@
 var slideTo, show, hide, changePage;
 
 jQuery(document).ready(function($){
+"use strict";
 
 var frame = $('#frame'),
     framecontainer = $('#framecontainer'),
     slidesize;
 
 // Setup frame and frameconteiner css, add end slide
-framecontainer.append('<div id="end" class="pik5-slide"><p>End of presentation.</p></div>');
+framecontainer.append('<div id="End" class="pik5-slide"><p id="EndContent"></p></div>');
 pik5.slides = $('.pik5-slide');
 frame.css('overflow', 'hidden');
 framecontainer.css('width', 100 * pik5.slides.length + '%');
 
-// The overlay element used to hide the presentation
-var overlayclass = (pik5.inPresenter) ? 'overlay overlay-presenter' : 'overlay';
+// The layer element used to hide the presentation
+var overlayclass = (pik5.inPresenter) ? 'pik5-overlay pik5-overlay-presenter' : 'pik5-overlay';
 var overlay = $('<div class="' + overlayclass + '"></div>').hide().appendTo(document.body);
 show = function(){
 	overlay.hide();
@@ -80,19 +81,17 @@ slideTo = function(evt, index){
 
 // Sync slide and body background color
 if(!pik5.inPresenter){ // prevents all sorts of chaos in the presenter view
-	if(typeof $.Color != 'undefined'){ // for compatibility reasons
-		var default_color = $('body').css('background-color');
-		if(default_color){
-			$('.pik5-slide').bind('activate', function(){
-				var c = $.Color($(this).css('background-color'));
-				if(c.alpha()){
-					$('body').css('background-color', c);
-				}
-				else {
-					$('body').css('background-color', default_color);
-				}
-			});
-		}
+	var default_color = $('body').css('background-color');
+	if(default_color){
+		$('.pik5-slide').bind('activate', function(){
+			var c = $.Color($(this).css('background-color'));
+			if(c.alpha()){
+				$('body').css('background-color', c);
+			}
+			else {
+				$('body').css('background-color', default_color);
+			}
+		});
 	}
 }
 
@@ -105,10 +104,9 @@ changePage = function(evt, url){
 // Execute events only if not in presenter
 if(!pik5.inPresenter){
 	$(window).bind({
-		'slideTo' : slideTo,
+		'change'  : slideTo,
 		'show'    : show,
 		'hide'    : hide,
-		'goTo'    : changePage,
 		'location': changePage
 	});
 }
