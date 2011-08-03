@@ -1,10 +1,11 @@
 jQuery(document).ready(function($){
+"use strict";
 
 var current = 0,
     currentWindow,
     nextWindow,
     currentFrame  = $('#current'),
-    nextFrame     = $('#next')
+    nextFrame     = $('#next'),
     timerRunning  = true;
 
 // Extract the title from a slide
