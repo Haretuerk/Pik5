@@ -89,8 +89,12 @@ pik5.toggleHidden = function(){
 
 // Trigger slideshow events
 var triggerChangeSlide = function(prev){
-	$(pik5.slides[pik5.state.current]).trigger('activate');
-	$(pik5.slides[prev]).trigger('deactivate');
+	if(pik5.slides && typeof pik5.slides[pik5.state.current] != 'undefined'){
+		$(pik5.slides[pik5.state.current]).trigger('activate');
+	}
+	if(pik5.slides && typeof pik5.slides[prev] != 'undefined'){
+		$(pik5.slides[prev]).trigger('deactivate');
+	}
 	win.trigger('change', pik5.state.current);
 }
 var triggerChangeHidden = function(){

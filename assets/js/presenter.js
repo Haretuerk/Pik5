@@ -1,12 +1,11 @@
 jQuery(document).ready(function($){
 
-var current       = 0,
+var current = 0,
     currentWindow,
     nextWindow,
     currentFrame  = $('#current'),
     nextFrame     = $('#next')
     timerRunning  = true;
-
 
 // Extract the title from a slide
 var getTitle = function(slide){
@@ -50,8 +49,7 @@ var h = 0,
 	}, 1000);
 })();
 
-
-// Timer controls
+// Stop/Start timer
 $('#stoptimer').click(function(){
 	if(timerRunning){
 		timerRunning = false;
@@ -62,6 +60,8 @@ $('#stoptimer').click(function(){
 		this.value = "Stop";
 	}
 });
+
+// Reset timer
 $('#resettimer').click(function(){
 	if(confirm('Reset the timer? This cannot be undone!')){
 		h = m = s = 0;
@@ -154,7 +154,7 @@ nextFrame.bind('load', function(){
 
 // Execute show/hide change
 $(window).bind({
-	'slideTo': function(evt, index){
+	'change': function(evt, index){
 		current = (typeof index == 'undefined') ? 0 : index;
 		$('#slideselect').val(current);
 		$('#currentindex').html(current + 1);
