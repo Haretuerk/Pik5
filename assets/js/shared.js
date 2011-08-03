@@ -25,9 +25,6 @@ var initOnMessage = function(){
 		}
 		// Else change our own state
 		else {
-			console.log(reply.current);
-			console.log(reply.hidden);
-			console.log(reply.location);
 			if(reply.current != pik5.state.current){
 				var prev = pik5.state.current;
 				pik5.state.current = reply.current;

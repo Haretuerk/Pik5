@@ -76,7 +76,7 @@ var setupSelect = function(){
 	var slideselecthtml = '';
 	pik5.slides.each(function(index, slide){
 		slide = $(slide);
-		if(slide.attr('id') !== 'end'){
+		if(slide && slide.attr('id') !== 'End'){
 			slideselecthtml += '<option value="' + index + '">' + getTitle(slide) + '</option>';
 		}
 	});

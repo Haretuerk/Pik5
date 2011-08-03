@@ -84,12 +84,12 @@ a.imagelink {
 	color:#FFF;
 	font-size:2em;
 }
-#end {
+#End {
 	background:#000;
 	position:relative;
 	z-index:1337;
 }
-#end p {
+#End p {
 	color:#FFF;
 	margin-top:5em;
 }
